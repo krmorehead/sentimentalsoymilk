@@ -211,25 +211,29 @@ module.exports = {
         return err;
       } else {
         console.log("FindbyID Results", trip);
-        return trip;
+        // return trip
+        res.send(trip);
       }
     })
-    .then(function(trip){
-      fullActivities.name = trip.name;
-      fullActivities.destination = trip.destination;
-      var activityLength = trip.activities.length;
-      trip.activities.forEach(function(tripId){
-        TripItems.findById({ _id: tripId }, function(err, trip) {
-          if (err) {
-            console.log("Error finding TripItems by tripId", err)
-          } else {
-            fullActivities.list.push(trip);
-            if(activityLength === fullActivities.list.length){
-              res.send(fullActivities);
-            }
-          }
-        });
-      });
-    });
+
+    //was in use when the trip activities weren't being stored
+    //with the tripId
+    // .then(function(trip){
+    //   fullActivities.name = trip.name;
+    //   fullActivities.destination = trip.destination;
+    //   var activityLength = trip.activities.length;
+    //   trip.activities.forEach(function(tripId){
+    //     TripItems.findById({ _id: tripId }, function(err, trip) {
+    //       if (err) {
+    //         console.log("Error finding TripItems by tripId", err)
+    //       } else {
+    //         fullActivities.list.push(trip);
+    //         if(activityLength === fullActivities.list.length){
+    //           res.send(fullActivities);
+    //         }
+    //       }
+    //     });
+    //   });
+    // });
   }
 };

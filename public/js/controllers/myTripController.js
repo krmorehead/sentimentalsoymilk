@@ -18,7 +18,7 @@ angular.module('app.mytrips', ['app.services'])
   // Is a function called when a specific playlist/trip is clicked on
   $scope.viewTrip = function (index) {
     // $scope.id stores the _.id for the specific trip
-    $scope.id = $scope.tripResults[index]._id;
-    $location.path('/trip/' + $scope.id);
+    var id = $scope.tripResults[index]._id;
+    $location.path('/trip/' + id);
   };
 })
