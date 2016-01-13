@@ -10,23 +10,13 @@ angular.module('app', ['app.auth', 'app.trip', 'app.landing', 'app.create', 'app
 
 
 .config(function ($routeProvider) {
-  var checkLoggedin = function($q, $http, $location, $rootScope) {
-    return $http.get('/api/loggedin').then(function(user) {
-      if (user) {
-        $rootScope.user = user;
-        console.log('rootscope user', $rootScope.user);
-      }
-    }, function(err) {
-      console.log('error authentcating user', err);
-      $location.url('/login');
-    });
-  };
 
   $routeProvider
     // landing page
     .when('/', {
       templateUrl: './js/templates/landing.html',
       controller: 'LandingController'
+      // console.log('auth', app.services);
     })
     // login page
     .when('/login', {
@@ -43,7 +33,9 @@ angular.module('app', ['app.auth', 'app.trip', 'app.landing', 'app.create', 'app
       templateUrl: './js/templates/createTrip.html',
       controller: 'CreateTripController',
       resolve: {
-        loggedin : checkLoggedin
+        data: function(Auth) {
+          return Auth.checkLoggedin();
+        }
       }
     })
     // myTrips page
