@@ -56,7 +56,7 @@ angular.module('app.create', ['app.services'])
   $scope.addToTrip = function(){
     // The first item added to the itinerary will be the item whose photo is stored with the trip
     if ($scope.itinerary.length === 0) {
-      $scope.itineraryImage = this.activity.photo;
+      $scope.itineraryImage = this.activity.image_url;
     }
     $scope.itinerary.push(this.activity);
   };
@@ -74,15 +74,15 @@ angular.module('app.create', ['app.services'])
   // see the documentation on services.js for more information.
   $scope.saveItinerary = function () {
     // POST request to /trips with $scope.itinerary 
-    var activityIds = $scope.itinerary.map(function (activity) {
-      return activity._id;
-    });
-    console.log("ACTIVITY:", activityIds);
+    // var activityIds = $scope.itinerary.map(function (activity) {
+    //   return activity._id;
+    // });
+    console.log("ACTIVITY:", $scope.itinerary);
     var tripObj = {
       name: $scope.itineraryName,
       city: $scope.city,
       state: $scope.state,
-      activities: activityIds,
+      activities: $scope.itinerary,
       image: $scope.itineraryImage
     };
     var trip = JSON.stringify(tripObj);
