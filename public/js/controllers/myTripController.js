@@ -10,6 +10,8 @@ angular.module('app.mytrips', ['app.services'])
   ActivitiesData.getTrips()
   .then(function(results){
     $scope.tripResults = results.data;
+    console.log(results.data)
+    
   });
 
   // <h4>$scope.viewTrip</h4>

@@ -173,14 +173,16 @@ module.exports = {
       activities: req.body.activities,
       image: req.body.image
     };
+    console.log(req.body.activities)
     Trips.create(playlist, function(err, results) {
       if (err) {
         console.log(err);
+      } else{          
+        //console.log('about to create playlist', results, 'user', req.user.username);
+        //add created trip id to users trips array
+        User.addTrip(req.user.username, results._id);
+        res.json(results);
       }
-      //console.log('about to create playlist', results, 'user', req.user.username);
-      //add created trip id to users trips array
-      User.addTrip(req.user.username, results._id);
-      res.json(results);
     });
   },
 
@@ -190,8 +192,7 @@ module.exports = {
   // Route : /trips
   getAllTrips: function (req, res, next) {
     Trips.find(function (err, results) {
-      console.log(results);
-      res.json(results)
+      res.send(results)
     });
   },
 

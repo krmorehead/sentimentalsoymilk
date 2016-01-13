@@ -39,10 +39,22 @@ angular.module('app.services',[])
   // <h4>data.getTrips</h4>
   // Function that sends a get request to /trips and retrieves
   // all trips from the db
+
+  //since the data is stringified before it is sent to the server
+  //we need to parse it when it comes back
+  var parseTrips = function(trips){
+    for(var i = 0; i < trips.data.length; i++){
+      var parsedActivities = []
+      var trip = trips.data[i]
+      trip.activities = JSON.parse(trip.activities)
+    }
+    return trips
+  }
+
   data.getTrips = function(){
     return $http.get('/trips')
     .then(function(results){
-      return results;
+      return parseTrips(results);
     })
     .catch(function(err){
       console.log("Error Getting User Trip Data: ", err)

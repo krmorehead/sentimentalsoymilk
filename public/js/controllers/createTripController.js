@@ -77,12 +77,14 @@ angular.module('app.create', ['app.services'])
     // var activityIds = $scope.itinerary.map(function (activity) {
     //   return activity._id;
     // });
+    //angular hashes the objects in the array, this removes that for mongo
+    var activities = angular.toJson($scope.itinerary)
     console.log("ACTIVITY:", $scope.itinerary);
     var tripObj = {
       name: $scope.itineraryName,
       city: $scope.city,
       state: $scope.state,
-      activities: $scope.itinerary,
+      activities: activities,
       image: $scope.itineraryImage
     };
     var trip = JSON.stringify(tripObj);
