@@ -34,14 +34,15 @@
     <li class="foursquare-li li-add" ng-repeat="activity in activities">
       <div class="row">
           <div class="col-xs-4">
-            <img class="addActivityImage" src="{{activity.photo}}" alt="{{activity.name}} in {{activity.address.split(',')[1]}}">
+            <img class="addActivityImage" src="{{activity.image_url}}" alt="{{activity.name}} in {{activity.address.split(',')[1]}}">
           </div>
           <div class="col-xs-6">
-            <p><strong>{{activity.name}}</strong></p>
-            <p>{{activity.address.split(',')[0]}}</p>
-            <p>{{activity.category}}</p>
-            <p>{{activity.rating}}/10</p>
-            <a href="{{activity.url}}" target="_blank">Website</a>
+              <p><strong>{{activity.name}}</strong></p>
+              <p>{{activity.location.display_address.join(", ")}}</p>
+              <p>{{activity.rating}}/5</p>
+              <p><img src="{{activity.rating_img_url}}"></p>
+              <p>Has been reviewed {{activity.review_count}} times</p>
+              <p class = "yelpLink"><a href="{{activity.url}}">Yelp Page</a></p>
           </div>
           <div class="col-xs-2">
             <!-- <i class="fa fa-thumbs-up fa-2x"></i> -->

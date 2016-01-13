@@ -173,14 +173,16 @@ module.exports = {
       activities: req.body.activities,
       image: req.body.image
     };
+    console.log(req.body.activities)
     Trips.create(playlist, function(err, results) {
       if (err) {
         console.log(err);
+      } else{          
+        //console.log('about to create playlist', results, 'user', req.user.username);
+        //add created trip id to users trips array
+        User.addTrip(req.user.username, results._id);
+        res.json(results);
       }
-      //console.log('about to create playlist', results, 'user', req.user.username);
-      //add created trip id to users trips array
-      User.addTrip(req.user.username, results._id);
-      res.json(results);
     });
   },
 
@@ -190,8 +192,7 @@ module.exports = {
   // Route : /trips
   getAllTrips: function (req, res, next) {
     Trips.find(function (err, results) {
-      console.log(results);
-      res.json(results)
+      res.send(results)
     });
   },
 
@@ -210,25 +211,29 @@ module.exports = {
         return err;
       } else {
         console.log("FindbyID Results", trip);
-        return trip;
+        // return trip
+        res.send(trip);
       }
     })
-    .then(function(trip){
-      fullActivities.name = trip.name;
-      fullActivities.destination = trip.destination;
-      var activityLength = trip.activities.length;
-      trip.activities.forEach(function(tripId){
-        TripItems.findById({ _id: tripId }, function(err, trip) {
-          if (err) {
-            console.log("Error finding TripItems by tripId", err)
-          } else {
-            fullActivities.list.push(trip);
-            if(activityLength === fullActivities.list.length){
-              res.send(fullActivities);
-            }
-          }
-        });
-      });
-    });
+
+    //was in use when the trip activities weren't being stored
+    //with the tripId
+    // .then(function(trip){
+    //   fullActivities.name = trip.name;
+    //   fullActivities.destination = trip.destination;
+    //   var activityLength = trip.activities.length;
+    //   trip.activities.forEach(function(tripId){
+    //     TripItems.findById({ _id: tripId }, function(err, trip) {
+    //       if (err) {
+    //         console.log("Error finding TripItems by tripId", err)
+    //       } else {
+    //         fullActivities.list.push(trip);
+    //         if(activityLength === fullActivities.list.length){
+    //           res.send(fullActivities);
+    //         }
+    //       }
+    //     });
+    //   });
+    // });
   }
 };

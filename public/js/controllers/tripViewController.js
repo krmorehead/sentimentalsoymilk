@@ -12,11 +12,11 @@ angular.module('app.trip', ['app.services'])
   // $scope.activities stores an array of all activities
   // $scope.name stores the name of the trip/playlist
   // $scope.destination stores the destionation of the trip
-  ActivitiesData.getTripActivities($scope.id, function (tripObj) {
-    console.log('tripobj ', tripObj);
-    $scope.activities = tripObj.data.list;
-    $scope.name = tripObj.data.name;
-    $scope.destination = tripObj.data.destination;
+  ActivitiesData.getTripActivities($scope.id, function (trip) {
+    console.log('trip ', trip);
+    $scope.activities = trip.activities;
+    $scope.name = trip.name;
+    $scope.destination = trip.destination;
   });
 
 })

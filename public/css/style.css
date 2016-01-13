@@ -12,6 +12,7 @@ h1 {
 .activitylist-left {
   height: 65vh;
   overflow: auto;
+  min-width: 40vw;
 }
 .activitylist-right {
   height: 80vh;

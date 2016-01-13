@@ -39,10 +39,22 @@ angular.module('app.services',[])
   // <h4>data.getTrips</h4>
   // Function that sends a get request to /trips and retrieves
   // all trips from the db
+
+  //since the data is stringified before it is sent to the server
+  //we need to parse it when it comes back
+  var parseTrips = function(trips){
+    for(var i = 0; i < trips.data.length; i++){
+      var parsedActivities = []
+      var trip = trips.data[i]
+      trip.activities = JSON.parse(trip.activities)
+    }
+    return trips
+  }
+
   data.getTrips = function(){
     return $http.get('/trips')
     .then(function(results){
-      return results;
+      return parseTrips(results);
     })
     .catch(function(err){
       console.log("Error Getting User Trip Data: ", err)
@@ -101,18 +113,20 @@ angular.module('app.services',[])
   // retrieves an object containing all activities and data related
   // to the trip id
   data.getTripActivities = function(id, cb){
-   return $http.get('/trips/' + id)
-   .then(function(results){
-    console.log('trip data: ', results)
-     //our server calls a get request to the foursquare api
-     //posts it to our database
-     //gets data back out of our database and returns it
-     cb(results);
-   })
-   .catch(function(err){
-     console.log("Error Getting User Trip Data: ", err)
-   })
- };
+    return $http.get('/trips/' + id)
+    .then(function(results){
+      console.log('trip data: ', results.data)
+      var trip = results.data
+      trip.activities = JSON.parse(trip.activities)
+      //our server calls a get request to the foursquare api
+      //posts it to our database
+      //gets data back out of our database and returns it
+      cb(trip);
+    })
+    .catch(function(err){
+      console.log("Error Getting User Trip Data: ", err)
+    })
+  };
 
   return data;
 })
