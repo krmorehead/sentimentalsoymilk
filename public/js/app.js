@@ -41,11 +41,21 @@ angular.module('app', ['app.auth', 'app.trip', 'app.landing', 'app.create', 'app
     // myTrips page
     .when('/myTrips', {
       templateUrl: './js/templates/mytrips.html',
-      controller: 'MyTripsController'
+      controller: 'MyTripsController',
+      resolve: {
+        data: function(Auth) {
+          return Auth.checkLoggedin();
+        }
+      }
     })
     // splash page
     .when('/splash', {
-      templateUrl: './js/templates/splash.html'
+      templateUrl: './js/templates/splash.html',
+      resolve: {
+        data: function(Auth) {
+          return Auth.checkLoggedin();
+        }
+      }
 
     })
     // single trip page
