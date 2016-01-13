@@ -174,5 +174,17 @@ angular.module('app.services',[])
     })
   };
 
+  auth.checkLoggedin = function($q, $http, $location, $rootScope) {
+    return $http.get('/api/loggedin').then(function(user) {
+      if (user) {
+        $rootScope.user = user;
+      }
+    }, function(err) {
+      console.log('error authentcating user', err);
+      $location.url('#/login');
+    });
+  };
+
+
   return auth;
 });
