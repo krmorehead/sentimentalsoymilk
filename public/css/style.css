@@ -136,6 +136,12 @@ div.playlist-img {
   width: 600px;
   margin: 0 auto;
 }
+.plus{
+  margin-right: 14px;
+  max-width:30px;
+  float:right;
+  display:block; 
+}
 
 /*splash*/
 .btn-spotify {

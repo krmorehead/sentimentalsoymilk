@@ -5,7 +5,10 @@ var request = require('request');
 var key = require('../env/config');
 var async = require('async');
 var yelp = require('../env/yelp').yelp;
+var flickr = require('../env/flickr').flickr;
 var User = require('./userController');
+
+
 
 var filterTripData = function(responseObj) {
   return responseObj.reduce(function(totalData, item) {
