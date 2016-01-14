@@ -60,11 +60,23 @@
             <button ng-click="startItinerary()" type="submit" class="btn btn-success">Start Itinerary</button>
           </div>
         </div>
+        <div>
+          <div class="input-group date" data-provide="datepicker">
+              <input type="text" class="form-control">
+              <div class="input-group-addon">
+                <script type='text/javascript'> 
+                  $('.datepicker').datepicker({
+                    format: "dd/mm/yyyy"
+                  });
+                </script>
+                <span class="glyphicon glyphicon-th"></span>
+              </div>
+          </div>
+        </div>
       </form>
     </div>
 
     <div class="itineraryDetails" ng-show="!!formCompleted">
-
       <h2>{{itineraryName}}</h2>
       <h4>{{city}}, {{state}}</h4>
       <div class="form-group">
