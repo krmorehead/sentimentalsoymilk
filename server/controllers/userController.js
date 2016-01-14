@@ -49,17 +49,24 @@ module.exports = {
     })
   },
 
-  storeUser: function(igProfile, token) {
+  storeUser: function(profile, token) {
     var userObj = {};
 
-    userObj.id = igProfile.id;
-    userObj.image = igProfile._json.data.profile_picture;
-    userObj.username = igProfile.username;
-    userObj.token = token;
+    if(profile.provider !== 'google') {
+      userObj.id = profile.id;
+      userObj.image = profile._json.data.profile_picture;
+      userObj.username = profile.username;
+      userObj.token = token;
+    } else {
+      userObj.id = profile.id;
+      userObj.image = profile.photos[0].value;
+      userObj.username = profile.email;
+      userObj.token = token;
+    }
 
     //console.log('userobj', userObj);
 
-    User.find({id: igProfile.id}, function(err, success) {
+    User.find({id: profile.id}, function(err, success) {
       if (err) {
         console.log('user already exists', err);
       } else {
