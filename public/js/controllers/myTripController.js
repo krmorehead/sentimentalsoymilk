@@ -7,11 +7,10 @@ angular.module('app.mytrips', ['app.services'])
   //<h4>ActivitiesData.getTrips</h4>
   // Is a function to get all trips to populate myTrips page
   // trips are stored in an $scope.tripResults as an array
-  ActivitiesData.getTrips()
-  .then(function(results){
+  ActivitiesData.getMyTrips()
+  .then(function(results) {
     $scope.tripResults = results.data;
-    console.log(results.data)
-    
+    console.log(results.data);
   });
 
   // <h4>$scope.viewTrip</h4>
@@ -21,4 +20,4 @@ angular.module('app.mytrips', ['app.services'])
     var id = $scope.tripResults[index]._id;
     $location.path('/trip/' + id);
   };
-})
+});

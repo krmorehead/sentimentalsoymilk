@@ -61,6 +61,16 @@ angular.module('app.services',[])
     })
   };
 
+  data.getMyTrips = function() {
+    return $http.get('/api/user/trips/')
+    .then(function(results) {
+      return parseTrips(results);
+    })
+    .catch(function(err) {
+      console.log('Error Getting my Trips Data: ', err);
+    });
+  };
+
   // <h4>data.getUsersTrips</h4>
   // Function that retrieves all of one users stored trips
   // sends get request to /trips/`userId`
