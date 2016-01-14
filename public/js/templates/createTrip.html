@@ -55,16 +55,24 @@
             <input type="text" class="form-control" id="inputPassword3" placeholder="Optional" ng-model="activity">
           </div>
         </div>
+        <div class="col-md-6">
+          <p class="input-group">
+            <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="popup1.opened" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+            <span class="input-group-btn">
+              <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+            </span>
+          </p>
+        </div>
         <div class="form-group">
           <div class="col-sm-offset-2 col-sm-10">
             <button ng-click="startItinerary()" type="submit" class="btn btn-success">Start Itinerary</button>
           </div>
         </div>
+
       </form>
     </div>
 
     <div class="itineraryDetails" ng-show="!!formCompleted">
-
       <h2>{{itineraryName}}</h2>
       <h4>{{city}}, {{state}}</h4>
       <div class="form-group">
