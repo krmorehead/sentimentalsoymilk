@@ -56,6 +56,7 @@
           </div>
         </div>
         <div class="col-md-6">
+          <label for="inputPassword3" class="col-sm-2 control-label">Date Attending</label>
           <p class="input-group">
             <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="popup1.opened" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
             <span class="input-group-btn">
@@ -130,7 +131,7 @@
               <p class = "yelpLink"><a href="{{activity.url}}">Yelp Page</a></p>
               <p>{{activity.address.split(',')[0]}}</p>
               <p>{{activity.category}}</p>
-              <div class='weatherButton' ng-hide="activity.weather" ng-click='getWeather(activity)'>
+              <div class='weatherButton' ng-hide="activity.weather" ng-click='getWeather(activity,dt)'>
                   <button class="btn btn-success">Get the Weather</button>
               </div>
               <div class='weather' ng-show='activity.weather'>

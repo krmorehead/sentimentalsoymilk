@@ -138,8 +138,29 @@ module.exports = {
   fetchWeatherData: function (req, res, next) {
     var urlParts = req.url.split('/');
     var lat = urlParts[3];
-    var lon = urlParts[4]
-    request('https://api.forecast.io/forecast/c1886414ac678c908104c2a20e4874c5/'+lat+','+lon+',2016-01-13T12:00:00', function (err, response, body) {
+    var lon = urlParts[4];
+    var date = urlParts[5].split('%20');
+
+    var map = {
+      'Jan':'01',
+      'Feb':'02',
+      'Mar':'03',
+      'Apr':'04',
+      'May':'05',
+      'Jun':'06',
+      'Jul':'07',
+      'Aug':'08',
+      'Sep':'09',
+      'Oct':'10',
+      'Nov':'11',
+      'Dec':'12'
+    };
+
+
+    var year = date[3];
+    var month = map[date[1]];
+    var day = date[2];
+    request('https://api.forecast.io/forecast/c1886414ac678c908104c2a20e4874c5/'+lat+','+lon+','+year+'-'+month+'-'+day+'T12:00:00', function (err, response, body) {
       if (!err) {
         res.send(body);
       }
