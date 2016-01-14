@@ -212,6 +212,9 @@ angular.module('app.create', ['app.services'])
           labelAnchor: "100 0",
           labelClass: "marker-labels"
         };
+        $scope.map.zoom = $scope.map.zoom +1;
+        $scope.map.center.latitude = $scope.marker.coords.latitude;
+        $scope.map.center.longitude = $scope.marker.coords.longitude;
         console.log('lat', $scope.marker.coords.latitude, 'long', $scope.marker.coords.longitude)
       }
     }
