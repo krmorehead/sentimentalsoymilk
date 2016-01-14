@@ -7,7 +7,7 @@
 // app.mytrips loads myTrips controller
 // ngRoute is for angular routing
 
-angular.module('app', ['ui.bootstrap', 'app.auth', 'app.trip', 'app.landing', 'app.create', 'app.services', 'app.mytrips', 'ngRoute', 'uiGmapgoogle-maps'])
+angular.module('app', ['ui.bootstrap', 'app.auth', 'app.trip', 'app.landing', 'app.create', 'app.services', 'app.mytrips', 'ngRoute', 'uiGmapgoogle-maps', 'app.map'])
 
 
 .config(function ($routeProvider) {
@@ -64,4 +64,11 @@ angular.module('app', ['ui.bootstrap', 'app.auth', 'app.trip', 'app.landing', 'a
       controller: 'TripController'
     })
     .otherwise('/');
-});
+})
+.config(function(uiGmapGoogleMapApiProvider) {
+    uiGmapGoogleMapApiProvider.configure({
+        key: 'AIzaSyDB9SYm3G2Om-qWU3uQ_hVYUhZ5fC37QIs',
+        v: '3.20', //defaults to latest 3.X anyhow
+        libraries: 'weather,geometry,visualization'
+    });
+})
