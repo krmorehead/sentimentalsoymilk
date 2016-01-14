@@ -3,24 +3,24 @@
 angular.module('app.create', ['app.services'])
 
 //  Factory functions are loaded in in 'ActivitiesData' from 'app.services'
-.controller('CreateTripController', function ($scope, $http, ActivitiesData) {
-  
+.controller('CreateTripController', function ($scope, $http, ActivitiesData, Map) {
+
   // $scope.formCompleted is a variable to determine if the form is completed
   // if it's false, the form with show
   // if true, the form will hide and the right side of page will populate
   $scope.formCompleted = false;
-  
+
   // <h3>startItinerary is a function to: </h3>
     // 1. hide the form
     // 2. trigger the search
   $scope.startItinerary = function () {
     console.log('start itinerary');
-    // this if block ensures that the Itinerary Name City and State are present 
+    // this if block ensures that the Itinerary Name City and State are present
     // before submitting the form
     if (!$scope.itineraryName || !$scope.city || !$scope.state) {
       return;
     } else {
-      // $scope.formCompleted set to true removes the form and begins populating 
+      // $scope.formCompleted set to true removes the form and begins populating
       // the rest of the page.
       $scope.formCompleted = true;
       $http.get('/activities/' + $scope.city + ',' + $scope.state)
@@ -44,14 +44,14 @@ angular.module('app.create', ['app.services'])
         activity.weather.min = data.daily.data[0].temperatureMin;
         activity.weather.summary = data.daily.data[0].summary;
         console.log(activity.weather)
-      }) 
+      })
   }
 
   // $scope.itinerary is an emtpy array that will contain all the activities the user will add
   // to their trip
-  $scope.itinerary = []; 
+  $scope.itinerary = [];
 
-  // <h4>$scope.addToTrip</h4> 
+  // <h4>$scope.addToTrip</h4>
   // Is a function that that adds an activity from the api to the users itinerary
   $scope.addToTrip = function(){
     // The first item added to the itinerary will be the item whose photo is stored with the trip
@@ -73,7 +73,7 @@ angular.module('app.create', ['app.services'])
   // the object is sent to the server and DB through the factory function ActivitiesData.createTrip
   // see the documentation on services.js for more information.
   $scope.saveItinerary = function () {
-    // POST request to /trips with $scope.itinerary 
+    // POST request to /trips with $scope.itinerary
     // var activityIds = $scope.itinerary.map(function (activity) {
     //   return activity._id;
     // });
@@ -173,6 +173,51 @@ angular.module('app.create', ['app.services'])
     }
 
     return '';
+  };
+
+  Map.createMap({
+    center: {
+      latitude: 40,
+      longitude: -99
+    },
+    zoom: 4,
+    events: {
+      click: function(map, click, args) {
+        console.log('clicked!');
+      }
+    }
+  }).then(function(map) {
+    $scope.map = map;
+    // $scope.events = {'click' : function () { console.log('woo-hoo') }};
+    console.log('create Trip map', $scope.map);
+  });
+
+  $scope.marker = {
+    id: 0,
+    coords: {
+      latitude: 40.1451,
+      longitude: -99.6680
+    },
+    options: { draggable: true },
+    events: {
+      dragend: function (marker, eventName, args) {
+        // $log.log('marker dragend');
+        var lat = marker.getPosition().lat();
+        var lon = marker.getPosition().lng();
+        // $log.log(lat);
+        // $log.log(lon);
+        $scope.marker.options = {
+          draggable: true,
+          labelContent: "lat: " + $scope.marker.coords.latitude + ' ' + 'lon: ' + $scope.marker.coords.longitude,
+          labelAnchor: "100 0",
+          labelClass: "marker-labels"
+        };
+        $scope.map.zoom = $scope.map.zoom +1;
+        $scope.map.center.latitude = $scope.marker.coords.latitude;
+        $scope.map.center.longitude = $scope.marker.coords.longitude;
+        console.log('lat', $scope.marker.coords.latitude, 'long', $scope.marker.coords.longitude)
+      }
+    }
   };
 
 });

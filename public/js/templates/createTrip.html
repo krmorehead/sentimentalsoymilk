@@ -24,6 +24,14 @@
   </div><!-- /.container-fluid -->
 </nav>
 
+<div class="create-trip-map">
+  <ui-gmap-google-map center="map.center" zoom="map.zoom" events="map.events">
+
+  <ui-gmap-marker coords="marker.coords" options="marker.options" events="marker.events" idkey="marker.id">
+          </ui-gmap-marker>
+  </ui-gmap-google-map>
+</div>
+
 <!-- content -->
 <div class="creation-container">
   <div class="col-xs-6 text-center left-column">

@@ -240,3 +240,7 @@ body, html {
 .angular-google-map-container {
   height: 400px;
 }
+.create-trip-map {
+  height: 400px;
+  width: 600px;
+}

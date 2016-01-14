@@ -211,4 +211,19 @@ angular.module('app.services',[])
 
 
   return auth;
+})
+
+.factory('Map', function(uiGmapGoogleMapApi) {
+  var map = {};
+
+  map.createMap = function(options) {
+    var createdMap;
+    return uiGmapGoogleMapApi.then(function(maps) {
+      //console.log('maps!', maps);
+      createdMap = options;
+      return createdMap;
+    });
+  };
+
+  return map;
 });
