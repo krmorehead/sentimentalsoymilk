@@ -133,8 +133,8 @@ module.exports = {
     });
   },
   //<h4> fetchWeatherData </h4>
-  // Gets the weather report for the location specified 
-  // at the time specified 
+  // Gets the weather report for the location specified
+  // at the time specified
   fetchWeatherData: function (req, res, next) {
     var urlParts = req.url.split('/');
     var lat = urlParts[3];
@@ -180,11 +180,19 @@ module.exports = {
     Trips.create(playlist, function(err, results) {
       if (err) {
         console.log(err);
-      } else{          
+      } else {
         //console.log('about to create playlist', results, 'user', req.user.username);
         //add created trip id to users trips array
-        User.addTrip(req.user.username, results._id);
-        res.json(results);
+        //if IG username is username, if google username is email
+        if (!req.user.username) {
+          User.addTrip(req.user.email, results._id);
+          res.json(results);
+        } else {
+          //console.log('req user name', req.user.email);
+          User.addTrip(req.user.username, results._id);
+          res.json(results);
+
+        }
       }
     });
   },
