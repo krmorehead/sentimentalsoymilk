@@ -8,29 +8,6 @@ var yelp = require('../env/yelp').yelp;
 var flickr = require('../env/flickr').flickr;
 var User = require('./userController');
 
-// 37.7833° N, 122.4167° W
-
-//all are optional accuracy defaults to 11 (city wide)
-var fetchPhotos = function(tags, lat, lon, accuracy){
-  flickr.getPhotos(["paris, france"])
-  // fetchCityData: function(req, res){
-  //   var cityState = parseCityName(decodeURI(req.url.split('/')[2]))
-  //   console.log(cityState)
-  //   var term = req.body.searchTerm
-  //   yelp.search({
-  //     term: term || "Activity",
-  //     location: cityState
-  //   }).then(function (data) {
-  //     console.log(data.businesses[0].location)
-  //     res.send(JSON.stringify(data.businesses))
-  //   }).catch(function (err) {
-  //     res.status(400).send(err);
-  //   });
-  // },  
-}
-
-
-
 var filterTripData = function(responseObj) {
   return responseObj.reduce(function(totalData, item) {
     var location = item.venue.location;
@@ -81,6 +58,46 @@ var handleSplitNames = function(name){
 }
 
 module.exports = {
+
+  //all are optional accuracy defaults to 11 (city wide)
+  //coordinates are not a great search parameter
+  fetchPhotos : function(req, res){
+    
+    var cityState = parseCityName(decodeURI(req.url.split('/')[2]))
+    //arguments for the getPhotos function
+    //tags(array), lat, lon, accuracy
+    flickr.getPhotos(["paris, france"])
+    // fetchCityData: function(req, res){
+    //   var cityState = parseCityName(decodeURI(req.url.split('/')[2]))
+    //   console.log(cityState)
+    //   var term = req.body.searchTerm
+    //   yelp.search({
+    //     term: term || "Activity",
+    //     location: cityState
+    //   }).then(function (data) {
+    //     console.log(data.businesses[0].location)
+    //     res.send(JSON.stringify(data.businesses))
+    //   }).catch(function (err) {
+    //     res.status(400).send(err);
+    //   });
+    // },  
+  },
+  //<h4> get city data </h4>
+  //grabs the city data from the query
+  fetchCityData: function(req, res){
+    var cityState = parseCityName(decodeURI(req.url.split('/')[2]))
+    console.log(cityState)
+    var term = req.body.searchTerm
+    yelp.search({
+      term: term || "Activity",
+      location: cityState
+    }).then(function (data) {
+      console.log(data.businesses[0].location)
+      res.send(JSON.stringify(data.businesses))
+    }).catch(function (err) {
+      res.status(400).send(err);
+    });
+  },
   //<h4> searchStoredData </h4>
   // Parses the city name from the request url param and
   // checks to see if our database containss that city.
@@ -137,22 +154,8 @@ module.exports = {
   //   });
   // },
 
-  //<h4></h4>
 
-  fetchCityData: function(req, res){
-    var cityState = parseCityName(decodeURI(req.url.split('/')[2]))
-    console.log(cityState)
-    var term = req.body.searchTerm
-    yelp.search({
-      term: term || "Activity",
-      location: cityState
-    }).then(function (data) {
-      console.log(data.businesses[0].location)
-      res.send(JSON.stringify(data.businesses))
-    }).catch(function (err) {
-      res.status(400).send(err);
-    });
-  },
+
   //<h4> fetchWeatherData </h4>
   // Gets the weather report for the location specified
   // at the time specified

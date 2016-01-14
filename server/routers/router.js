@@ -17,6 +17,7 @@ module.exports = function(app, express) {
   //removed storage because that data changes over time
 
   // app.get('/activities/*', controller.searchStoredData, controller.fetchCityData);
+  app.get('/photos/*', controller.fetchPhotos)
   app.get('/activities/*', controller.fetchCityData);
   app.post('/trips', controller.createTrip);
   app.get('/trips/:id', controller.accessTrip);
