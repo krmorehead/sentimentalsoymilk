@@ -90,7 +90,7 @@
       <div class="activitylist-left">
         <ul>
           <li class="foursquare-li li-remove" ng-repeat="activity in itinerary track by $index">
-          <div class="row" ng-click="addToTrip()">
+          <div class="row" ng-click="removeFromTrip()">
               <img class="addActivityImage" src="{{activity.image_url}}" alt="">
               <p><strong>{{activity.name}}</strong></p>
               <p>{{activity.location.display_address.join(", ")}}</p>
