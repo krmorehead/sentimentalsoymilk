@@ -1,30 +1,62 @@
 var Flickr = require('flickr').Flickr;
 
+
+var flickr = new Flickr('d04e5aac7cf3921706e138faacd9f276', '7e1000af685d527d')
+
 var flickrOptions = {
   api_key: "d04e5aac7cf3921706e138faacd9f276",
   secret: "7e1000af685d527d"
 };
 
-var flickr = new Flickr('d04e5aac7cf3921706e138faacd9f276', '7e1000af685d527d')
 var flickr_params = {
   per_page: 25,
   page: 1,
   geo_context: 2,
+  accuracy: 11,
+}
+
+
+//gets photo objects from flickr that are then modified
+flickr.getPhotos = function(tags, lat, lon, accuracy){
+	if(tags){
+		addTags(tags)
+	}
+	if(lat && lon){
+		addGeo(lat, lon, accuracy)
+	}
+	
+	flickr.executeAPIRequest("flickr.photos.search", flickr_params, false, function(err, result) {
+	  // Show the error if we got one
+	  if(err) {
+	      console.log("FLICKR ERROR: " + err);
+	      return;
+	  }else{
+	  	var urls = [];
+	  	var photos = result.photos.photo
+	  	for(var i = 0; i < photos.length; i++){
+	  		urls.push({
+	  			photoUrl : formatUrl(photos[i]),
+	  			profileUrl : profileUrl(photos[i])
+	  		})
+	  	}
+	  	console.log(urls)
+	  }
+	});
 }
 
 //adds an array of tags to the params
-flickr.addTags = function(tags){
+var addTags = function(tags){
 	flickr_params["tags"] = tags.join(",")
 }
 
-flickr.addGeo = function(lat, lon){
+var addGeo = function(lat, lon, accuracy){
 	flickr_params["lat"] = lat;
 	flickr_params["lon"] = lon;
-	flickr_params["accuracy"] = 11;
+	flickr_params["accuracy"] = accuracy || 11;
 }
 
 //builds a image url from the flickr object returned
-flickr.formatUrl = function(photoObj, size){
+var formatUrl = function(photoObj, size){
 	// farmId, serverId, userId, secret
 	var url = "https://farm" + photoObj.farm
 	+ ".staticflickr.com/" + photoObj.server
@@ -36,21 +68,15 @@ flickr.formatUrl = function(photoObj, size){
 	return url
 }
 
-flickr.executeAPIRequest("flickr.photos.search", flickr_params, false, function(err, result) {
-  // Show the error if we got one
-  if(err) {
-      console.log("FLICKR ERROR: " + err);
+//builds the profile link grom the photoObj to avoid copyright issues
+var profileUrl = function(photoObj){
+	return "https://www.flickr.com/photos/" + photoObj.owner
+	+ "/" + photoObj.id
+}
 
-      return;
-  }else{
-  	console.log(result.photos)
-  }
-});
-
-//formula for making a link to image
-//
-// https://farm{farm-id}.staticflickr.com/{server-id}/{id}_{secret}.jpg
-// + _{size}
+module.exports = {
+	flickr: flickr
+}
 
 // s	small square 75x75
 // q	large square 150x150

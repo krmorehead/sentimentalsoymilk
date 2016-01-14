@@ -75,14 +75,14 @@ module.exports = {
     })
     .then(function(success) {
       if (success.length !== 0) {
-        console.log('sending back found user', success);
+        // console.log('sending back found user', success);
         //res.send(success);
       } else {
         User.create(userObj, function(err, results) {
           if (err) {
             console.log('Error creating user', err);
           } else {
-            console.log('Created user', results);
+            // console.log('Created user', results);
             return results;
           }
         });
@@ -115,7 +115,7 @@ module.exports = {
         console.log("Error finding username verifyUser", err)
         res.send(result);
       } else {
-        console.log("Result of user find in login", result)
+        // console.log("Result of user find in login", result)
         result.comparePassword(password, function(err, found) {
           if(err) console.log("Error comparing password", err)
           console.log("Compare Password", found)

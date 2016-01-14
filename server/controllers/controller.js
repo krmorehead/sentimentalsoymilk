@@ -8,6 +8,27 @@ var yelp = require('../env/yelp').yelp;
 var flickr = require('../env/flickr').flickr;
 var User = require('./userController');
 
+// 37.7833° N, 122.4167° W
+
+//all are optional accuracy defaults to 11 (city wide)
+var fetchPhotos = function(tags, lat, lon, accuracy){
+  flickr.getPhotos(["paris, france"])
+  // fetchCityData: function(req, res){
+  //   var cityState = parseCityName(decodeURI(req.url.split('/')[2]))
+  //   console.log(cityState)
+  //   var term = req.body.searchTerm
+  //   yelp.search({
+  //     term: term || "Activity",
+  //     location: cityState
+  //   }).then(function (data) {
+  //     console.log(data.businesses[0].location)
+  //     res.send(JSON.stringify(data.businesses))
+  //   }).catch(function (err) {
+  //     res.status(400).send(err);
+  //   });
+  // },  
+}
+
 
 
 var filterTripData = function(responseObj) {

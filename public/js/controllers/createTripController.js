@@ -33,6 +33,12 @@ angular.module('app.create', ['app.services'])
       }
   };
 
+  $scope.getPhotos = function(activity){
+    var lat = activity.location.coordinate.latitude;
+    var lon = activity.location.coordinate.longitude;
+    
+  };
+
   $scope.getWeather = function (activity,dt) {
     var lat = activity.location.coordinate.latitude;
     var lon = activity.location.coordinate.longitude;
