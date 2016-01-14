@@ -211,4 +211,18 @@ angular.module('app.services',[])
 
 
   return auth;
+})
+
+.factory('Map', function(uiGmapGoogleMapApi) {
+  var map = {};
+  map.createMap = function() {
+    var createdMap;
+    return uiGmapGoogleMapApi.then(function(maps) {
+      //console.log('maps!', maps);
+      createdMap = { center: { latitude: 45, longitude: -73 }, zoom: 5 };
+      return createdMap;
+    });
+  };
+
+  return map;
 });
