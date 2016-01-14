@@ -6,7 +6,7 @@
 // app.services loads all factory/service functionality
 // app.mytrips loads myTrips controller
 // ngRoute is for angular routing
-angular.module('app', ['app.auth', 'app.trip', 'app.landing', 'app.create', 'app.services', 'app.mytrips', 'ngRoute'])
+angular.module('app', ['ui.bootstrap','app.auth', 'app.trip', 'app.landing', 'app.create', 'app.services', 'app.mytrips', 'ngRoute'])
 
 
 .config(function ($routeProvider) {
