@@ -16,38 +16,38 @@ module.exports = {
     }
   },
 
-  signup : function(req, res, next) {
-    var username = req.body.username;
-    var password = req.body.password;
-    console.log("req body",req.body)
-    User.find({username: username}, function(err, success){
-      if(err){
-        console.log("hit err", err);
-      } else{
-        return success;
-      }
-    })
-    .then(function(success){
-      if(success.length !== 0){
-        console.log("sending back found user ", success)
-        res.send(success)
-      } else{
-        User.create({username: username, password: password}, function(err, results){
-          if (err) {
-            console.log("Error creating user", err);
-          } else {
-            console.log("Created user", results)
-            return results;
-          }
-        })
-        .then(function(result){
-          req.session.user = username;
-          console.log("User created by SignUp");
-          res.send(result);
-        })
-      }
-    })
-  },
+  // signup : function(req, res, next) {
+  //   var username = req.body.username;
+  //   var password = req.body.password;
+  //   console.log("req body",req.body)
+  //   User.find({username: username}, function(err, success){
+  //     if(err){
+  //       console.log("hit err", err);
+  //     } else{
+  //       return success;
+  //     }
+  //   })
+  //   .then(function(success){
+  //     if(success.length !== 0){
+  //       console.log("sending back found user ", success)
+  //       res.send(success)
+  //     } else{
+  //       User.create({username: username, password: password}, function(err, results){
+  //         if (err) {
+  //           console.log("Error creating user", err);
+  //         } else {
+  //           console.log("Created user", results)
+  //           return results;
+  //         }
+  //       })
+  //       .then(function(result){
+  //         req.session.user = username;
+  //         console.log("User created by SignUp");
+  //         res.send(result);
+  //       })
+  //     }
+  //   })
+  // },
 
   storeUser: function(profile, token) {
     var userObj = {};
@@ -95,16 +95,16 @@ module.exports = {
     });
   },
 
-  fetchIGPhotos: function(req, res, next) {
-    console.log('req user', req.user.token);
-    var token = req.user.token;
-    var igURL = 'https://API.instagram.com/v1/locations/search?lat=48.858844&lng=2.294351&access_token='+ token;
-    request(igURL, function(err, response, body) {
-      res.send(body);
-      console.log(body);
-    });
-    //res.status(200).send();
-  },
+  // fetchIGPhotos: function(req, res, next) {
+  //   console.log('req user', req.user.token);
+  //   var token = req.user.token;
+  //   var igURL = 'https://API.instagram.com/v1/locations/search?lat=48.858844&lng=2.294351&access_token='+ token;
+  //   request(igURL, function(err, response, body) {
+  //     res.send(body);
+  //     console.log(body);
+  //   });
+  //   res.status(200).send();
+  // },
 
   login : function(req, res, next) {
     var username = req.body.username;
@@ -145,35 +145,58 @@ module.exports = {
   // },
 
   findAllUserTrips: function(req, res, next) {
-    console.log("userID", req);
-    var userId = req.url.split('/')[4];
-    var myTrips = [];
-    User.findById({ _id: userId }, function(err, user) {
-      if (err) {
-        console.log("findById error", err)
-        return err;
-      } else {
-        console.log("findbyID Results", trip);
-        return user;
-      }
-    })
-    .then(function(user){
-      var tripLength = user.trips.length;
-      user.trips.forEach(function(tripId){
-        Trips.findById({ _id: tripId }, function(err, trip) {
-          if (err) {
-            console.log("Error finding Trips by tripId", err)
-          } else {
-            console.log("Found trip", trip)
-            myTrips.push(trip);
-            if(tripLength === myTrips.length){
-              console.log("myTrip:", myTrips)
-              res.send(myTrips);
-            }
-          }
-        });
+    var userTripsArr = [];
+    console.log('req user find all trips', req.user.username);
+    User.findOne({username: req.user.username}, function (err, user) {
+      console.log('found user trips', user.trips);
+      Trips.find({
+        '_id': {
+          $in: user.trips
+        }}, function(results) {
+          console.log('users trips!', results);
       });
+      // user.trips.forEach(function(currTrip) {
+      //   //get the tripObjs for each tripObdId
+      //   Trips.find({
+      //     _id: {$in: }
+      //     }, function(trip) {
+      //       userTripsArr.push(trip);
+      //   });
+      // });
+      res.send(userTripsArr);
     });
+    // console.log("userID", req.user);
+    // var myTrips = [];
+    //google auth doesn't have username
+
+
+    // User.findById({username: req.user.username }, function(err, user) {
+    //   if (err) {
+    //     console.log('findAllUserTrips error finding username', err);
+    //     return err;
+    //   } else {
+    //     console.log('findbyID Results', trip);
+    //     return user;
+    //   }
+    // })
+
+    // .then(function(user){
+    //   var tripLength = user.trips.length;
+    //   user.trips.forEach(function(tripId){
+    //     Trips.findById({ _id: tripId }, function(err, trip) {
+    //       if (err) {
+    //         console.log("Error finding Trips by tripId", err)
+    //       } else {
+    //         console.log("Found trip", trip)
+    //         myTrips.push(trip);
+    //         if(tripLength === myTrips.length){
+    //           console.log("myTrip:", myTrips)
+    //           res.send(myTrips);
+    //         }
+    //       }
+    //     });
+    //   });
+    // });
   },
 
   // findOneUserTrip): function(req, res, next) {
@@ -214,6 +237,7 @@ module.exports = {
 
   logout : function(req, res, next) {
     req.logout();
+    res.redirect('/#/login');
   }
 };
 
