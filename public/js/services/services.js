@@ -215,11 +215,12 @@ angular.module('app.services',[])
 
 .factory('Map', function(uiGmapGoogleMapApi) {
   var map = {};
-  map.createMap = function() {
+
+  map.createMap = function(options) {
     var createdMap;
     return uiGmapGoogleMapApi.then(function(maps) {
       //console.log('maps!', maps);
-      createdMap = { center: { latitude: 45, longitude: -73 }, zoom: 5 };
+      createdMap = options;
       return createdMap;
     });
   };

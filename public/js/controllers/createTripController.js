@@ -175,9 +175,46 @@ angular.module('app.create', ['app.services'])
     return '';
   };
 
-  Map.createMap().then(function(map) {
+  Map.createMap({
+    center: {
+      latitude: 40,
+      longitude: -99
+    },
+    zoom: 4,
+    events: {
+      click: function(map, click, args) {
+        console.log('clicked!');
+      }
+    }
+  }).then(function(map) {
     $scope.map = map;
+    // $scope.events = {'click' : function () { console.log('woo-hoo') }};
     console.log('create Trip map', $scope.map);
   });
+
+  $scope.marker = {
+    id: 0,
+    coords: {
+      latitude: 40.1451,
+      longitude: -99.6680
+    },
+    options: { draggable: true },
+    events: {
+      dragend: function (marker, eventName, args) {
+        // $log.log('marker dragend');
+        var lat = marker.getPosition().lat();
+        var lon = marker.getPosition().lng();
+        // $log.log(lat);
+        // $log.log(lon);
+        $scope.marker.options = {
+          draggable: true,
+          labelContent: "lat: " + $scope.marker.coords.latitude + ' ' + 'lon: ' + $scope.marker.coords.longitude,
+          labelAnchor: "100 0",
+          labelClass: "marker-labels"
+        };
+        console.log('lat', $scope.marker.coords.latitude, 'long', $scope.marker.coords.longitude)
+      }
+    }
+  };
 
 });
