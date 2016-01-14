@@ -145,16 +145,28 @@ module.exports = {
   // },
 
   findAllUserTrips: function(req, res, next) {
-    var userTripsArr = [];
-    console.log('req user find all trips', req.user.username);
+    //var userTripsArr = [];
+    //console.log('req user find all trips', req.user.username);
     User.findOne({username: req.user.username}, function (err, user) {
-      console.log('found user trips', user.trips);
+      //console.log('found user trips', user.trips);
+      // Trips.find({_id: {$in: user.trips}}, function(results) {
+      //   console.log('users trips!', results);
+      // });
       Trips.find({
-        '_id': {
-          $in: user.trips
-        }}, function(results) {
-          console.log('users trips!', results);
+          _id: {$in: user.trips}
+        }, function(err, trips) {
+        //console.log('found trips', trips);
+        res.send(trips);
       });
+      // find({
+      //     '_id': { $in: [
+      //         '4ed3ede8844f0f351100000c',
+      //         '4ed3f117a844e0471100000d',
+      //         '4ed3f18132f50c491100000e'
+      //     ]}
+      // }, function(err, docs){
+      //      console.log(docs);
+      // });
       // user.trips.forEach(function(currTrip) {
       //   //get the tripObjs for each tripObdId
       //   Trips.find({
@@ -163,7 +175,7 @@ module.exports = {
       //       userTripsArr.push(trip);
       //   });
       // });
-      res.send(userTripsArr);
+
     });
     // console.log("userID", req.user);
     // var myTrips = [];
