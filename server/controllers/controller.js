@@ -89,7 +89,7 @@ module.exports = {
       term: term || "Activity",
       location: cityState
     }).then(function (data) {
-      console.log(data.businesses[0].location)
+      console.log(data.businesses[0].location, "BUSINESS LOCATION")
       res.send(JSON.stringify(data.businesses))
     }).catch(function (err) {
       res.status(400).send(err);
