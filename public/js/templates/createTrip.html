@@ -74,7 +74,7 @@
         </div>
         <div class="form-group">
           <div class="col-sm-offset-2 col-sm-10">
-            <button ng-click="startItinerary()" type="submit" class="btn btn-success">Start Itinerary</button>
+            <button ng-click="startItinerary(); getPhotos()" type="submit" class="btn btn-success">Start Itinerary</button>
           </div>
         </div>
 
@@ -122,6 +122,9 @@
     </div> -->
 
 
+  </div>
+  <div class = "photos">
+    <span ng-repeat = "photo in photos"><img src="{{photo.photoUrl + '_s.jpg'}}"></span>
   </div>
   <div class="selection-list col-xs-6 text-center right-column">
     <h4>Activities</h4>

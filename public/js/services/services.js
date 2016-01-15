@@ -36,6 +36,17 @@ angular.module('app.services',[])
     })
   };
 
+  data.getPhotos = function(city, callback){
+    return $http.get('/photos/' + city)
+    .then(function(results){
+      console.log("get photos for " + city)
+      callback(results.data)
+    })
+    .catch(function(err){
+      console.log("error finding photos", err)
+    })
+  }
+
   // <h4>data.getTrips</h4>
   // Function that sends a get request to /trips and retrieves
   // all trips from the db

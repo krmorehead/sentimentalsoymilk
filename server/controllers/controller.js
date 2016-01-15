@@ -57,30 +57,27 @@ var handleSplitNames = function(name){
   return parsedName;
 }
 
+//test data
+// console.log("FLICKR")
+// flickr.getPhotos(["san francisco", " california"], console.log)
 module.exports = {
 
   //all are optional accuracy defaults to 11 (city wide)
   //coordinates are not a great search parameter
   fetchPhotos : function(req, res){
-    
-    var cityState = parseCityName(decodeURI(req.url.split('/')[2]))
+    var text = parseCityName(decodeURI(req.url.split('/')[2]))
+    console.log("fetching photos", text)
     //arguments for the getPhotos function
-    //tags(array), lat, lon, accuracy
-    flickr.getPhotos(["paris, france"])
-    // fetchCityData: function(req, res){
-    //   var cityState = parseCityName(decodeURI(req.url.split('/')[2]))
-    //   console.log(cityState)
-    //   var term = req.body.searchTerm
-    //   yelp.search({
-    //     term: term || "Activity",
-    //     location: cityState
-    //   }).then(function (data) {
-    //     console.log(data.businesses[0].location)
-    //     res.send(JSON.stringify(data.businesses))
-    //   }).catch(function (err) {
-    //     res.status(400).send(err);
-    //   });
-    // },  
+    //text, tags(array), lat, lon, accuracy
+    flickr.getPhotos(text, function(err, photosArray){
+      if(err){
+        console.log('flickr error', err)
+        res.send(err)
+      }else{
+        console.log("photos", photosArray)
+        res.send(photosArray)
+      }
+    })
   },
   //<h4> get city data </h4>
   //grabs the city data from the query

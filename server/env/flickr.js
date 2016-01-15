@@ -11,42 +11,56 @@ var flickrOptions = {
 var flickr_params = {
   per_page: 25,
   page: 1,
-  geo_context: 2,
-  accuracy: 11,
+  // geo_context: 2,
+  // accuracy: 11,
+  safe_search	: 2,
+  text: "",
+  sort: "relevance"
+  // tag_mode: "all",
 }
 
 
 //gets photo objects from flickr that are then modified
-flickr.getPhotos = function(tags, lat, lon, accuracy){
-	if(tags){
+// lat, lon, accuracy,
+flickr.getPhotos = function(text, tags, lat, lon, accuracy, callback){
+	var callback = arguments[arguments.length - 1]
+	if(text){
+		addText(text)
+	}
+	if(arguments.length > 2){
 		addTags(tags)
 	}
-	if(lat && lon){
+	if(arguments.length > 4){
 		addGeo(lat, lon, accuracy)
 	}
 	
 	flickr.executeAPIRequest("flickr.photos.search", flickr_params, false, function(err, result) {
 	  // Show the error if we got one
+	  console.log(flickr_params)
+	  flickr_params["text"] = "";
 	  if(err) {
-	      console.log("FLICKR ERROR: " + err);
-	      return;
+	      callback(err);
 	  }else{
-	  	var urls = [];
+	  	var urls = [];	  	
 	  	var photos = result.photos.photo
+	  	// console.log("photos in flickr", photos)
 	  	for(var i = 0; i < photos.length; i++){
 	  		urls.push({
 	  			photoUrl : formatUrl(photos[i]),
 	  			profileUrl : profileUrl(photos[i])
 	  		})
 	  	}
-	  	console.log(urls)
+	  	callback(null , urls)
 	  }
 	});
 }
 
+var addText = function(text){
+	flickr_params["text"] += text
+}
 //adds an array of tags to the params
 var addTags = function(tags){
-	flickr_params["tags"] = tags.join(",")
+	flickr_params["tags"] = flickr_params["tags"] + "," + tags.join(",")
 }
 
 var addGeo = function(lat, lon, accuracy){
@@ -61,7 +75,8 @@ var formatUrl = function(photoObj, size){
 	var url = "https://farm" + photoObj.farm
 	+ ".staticflickr.com/" + photoObj.server
 	+ "/" + photoObj.id
-	+ "_" + photoObj.secret + ".jpg"
+	+ "_" + photoObj.secret 
+	// + "_" + size + ".jpg"
 	if(size){
 		url += size
 	}
