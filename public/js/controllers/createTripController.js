@@ -182,14 +182,14 @@ angular.module('app.create', ['app.services'])
     },
     zoom: 4,
     events: {
-      click: function(map, click, args) {
-        console.log('clicked!');
-      }
+      // click: function(map, click, args) {
+      //   console.log('clicked!');
+      // }
     }
   }).then(function(map) {
     $scope.map = map;
     // $scope.events = {'click' : function () { console.log('woo-hoo') }};
-    console.log('create Trip map', $scope.map);
+    //console.log('create Trip map', $scope.map);
   });
 
   $scope.marker = {
@@ -201,21 +201,28 @@ angular.module('app.create', ['app.services'])
     options: { draggable: true },
     events: {
       dragend: function (marker, eventName, args) {
-        // $log.log('marker dragend');
         var lat = marker.getPosition().lat();
         var lon = marker.getPosition().lng();
-        // $log.log(lat);
-        // $log.log(lon);
         $scope.marker.options = {
           draggable: true,
           labelContent: "lat: " + $scope.marker.coords.latitude + ' ' + 'lon: ' + $scope.marker.coords.longitude,
           labelAnchor: "100 0",
           labelClass: "marker-labels"
         };
-        $scope.map.zoom = $scope.map.zoom +1;
+        $scope.map.zoom = $scope.map.zoom + 1;
         $scope.map.center.latitude = $scope.marker.coords.latitude;
         $scope.map.center.longitude = $scope.marker.coords.longitude;
-        console.log('lat', $scope.marker.coords.latitude, 'long', $scope.marker.coords.longitude)
+        var geoObj = {
+          lat: lat,
+          lng: lon
+        };
+        Map.getCityfromGeo(geoObj).then(function(obj) {
+          console.log(obj);
+          $scope.city = obj.city;
+          $scope.state = obj.state;
+          $scope.itineraryName = obj.city + obj.state;
+        });
+        //console.log('lat', $scope.marker.coords.latitude, 'long', $scope.marker.coords.longitude);
       }
     }
   };

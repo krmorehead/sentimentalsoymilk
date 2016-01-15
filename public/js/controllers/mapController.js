@@ -2,7 +2,13 @@ angular.module('app.map', ['app.services'])
 
 // ActivitiesData is a factory/service laoded from app.services
 // $location is for redirecting
-.controller('Map', function ($scope, $http, ActivitiesData) {
+.controller('Map', function ($scope, $http, ActivitiesData, uiGmapGoogleMapApi) {
+
+  uiGmapGoogleMapApi.then(function(maps) {
+    //console.log('maps!', maps);
+    $scope.map = { center: { latitude: 45, longitude: -73 }, zoom: 2 };
+    console.log('scope map', $scope.map);
+  });
 
   //<h4>ActivitiesData.getTrips</h4>
   // Is a function to get all trips to populate myTrips page
