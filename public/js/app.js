@@ -15,7 +15,12 @@ angular.module('app', ['ui.bootstrap', 'app.auth', 'app.trip', 'app.landing', 'a
     // landing page
     .when('/', {
       templateUrl: './js/templates/landing.html',
-      controller: 'LandingController'
+      controller: 'LandingController',
+      resolve: {
+        data: function(Auth) {
+          return Auth.checkLoggedin();
+        }
+      }
       // console.log('auth', app.services);
     })
     // login page
