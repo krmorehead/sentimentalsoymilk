@@ -40,7 +40,12 @@ angular.module('app.create', ['app.services'])
     ActivitiesData.getPhotos(cityState, function(photos){
       $scope.photos = photos
       console.log("photos", $scope.photos)
-      $scope.smallPhotos = ActivitiesData.makePhotos(photos, "small")
+      var smallPhotos =  ActivitiesData.makePhotos(photos, "small")
+      var medPhotos =  ActivitiesData.makePhotos(photos, 320)
+      $scope.photos.forEach(function(photoObj, index){
+        photoObj.smallPhoto = smallPhotos[index]
+        photoObj.medPhoto = medPhotos[index]
+      })
     })
   };
 

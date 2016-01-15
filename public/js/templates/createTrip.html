@@ -114,6 +114,7 @@
       </div>
         <button class="btn btn-success" ng-click="saveItinerary()">Save Your Itinerary!</button>
     </div>
+  </div>
 
 <!--     <div class="itineraryItems" ng-show="!!formCompleted">
       <div ng-repeat="activity in itinerary track by $index">
@@ -122,11 +123,26 @@
       <button class="btn btn-success" ng-click="saveItinerary()">Save Your Itinerary!</button>
     </div> -->
 
-
-  </div>
+<!-- HERE IS WHERE PHOTOS ARE -->
   <div class = "photos">
-    <span ng-repeat = "photo in smallPhotos"><img src="{{photo}}"></span>
+    <span>
+      <ul class="enlarge">
+        <li ng-repeat = "photo in photos">
+          <a href = "{{photo.profileUrl}}">
+            <img src="{{photo.smallPhoto}}">
+          </a>
+          <span>
+            <img src="{{photo.medPhoto}}">
+            <br/>{{photo.profileUrl}}
+          </span>
+        </li>
+      </ul>
+      <!-- <img src="{{photo.smallPhoto}}"> -->
+    </span>
   </div>
+
+
+
   <div class="selection-list col-xs-6 text-center right-column">
     <h4>Activities</h4>
     <div class="activitylist-right">

@@ -9,7 +9,7 @@ var flickrOptions = {
 };
 
 var flickr_params = {
-  per_page: 25,
+  per_page: 18,
   page: 1,
   // geo_context: 2,
   // accuracy: 11,
