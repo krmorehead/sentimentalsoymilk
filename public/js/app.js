@@ -67,8 +67,8 @@ angular.module('app', ['ui.bootstrap', 'app.auth', 'app.trip', 'app.landing', 'a
 })
 .config(function(uiGmapGoogleMapApiProvider) {
     uiGmapGoogleMapApiProvider.configure({
-        key: 'AIzaSyDB9SYm3G2Om-qWU3uQ_hVYUhZ5fC37QIs',
+        key: googleMapkey,
         v: '3.20', //defaults to latest 3.X anyhow
         libraries: 'weather,geometry,visualization'
     });
-})
+});

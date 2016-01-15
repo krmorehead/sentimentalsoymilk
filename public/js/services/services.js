@@ -213,7 +213,7 @@ angular.module('app.services',[])
   return auth;
 })
 
-.factory('Map', function(uiGmapGoogleMapApi) {
+.factory('Map', function($http, uiGmapGoogleMapApi) {
   var map = {};
 
   map.createMap = function(options) {
@@ -225,5 +225,34 @@ angular.module('app.services',[])
     });
   };
 
+  //takes a geoObj with lat/lng props and returns city info back
+  map.getCityfromGeo = function(geoObj) {
+    var url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + geoObj.lat + ',' + geoObj.lng + '&key=' + googleGeoKey;
+    return $http.get(url)
+    .then(function(results) {
+      //console.log('geo get',results);
+      var returnGeoObj = {};
+
+      returnGeoObj.lat = geoObj.lat;
+      returnGeoObj.lng=geoObj.lng;
+
+      if (results.data.results[0].address_components[2] !== undefined) {
+        returnGeoObj.city = results.data.results[0].address_components[2].long_name;
+      }
+      if (results.data.results[0].address_components[4] !== undefined) {
+        returnGeoObj.state = results.data.results[0].address_components[4].long_name;
+      }
+      if (results.data.results[0].address_components[5] !== undefined) {
+        returnGeoObj.country = results.data.results[0].address_components[5].long_name;
+      }
+      if (results.data.results[0].address_components[6] !== undefined) {
+        returnGeoObj.zip = results.data.results[0].address_components[6].long_name;
+      }
+      if (results.data.results[0].formatted_address !== undefined) {
+        returnGeoObj.address = results.data.results[0].formatted_address;
+      }
+      return returnGeoObj;
+    });
+  };
   return map;
 });
