@@ -35,6 +35,7 @@ var filterTripData = function(responseObj) {
 // returns a string of the city name
 var parseCityName = function(cityRequest) {
   var cityRequest = cityRequest.split(',');
+  console.log(cityRequest);
   // var cityLowercase = cityRequest[0]
   var stateCountry = cityRequest[1]
   var location = handleSplitNames(cityRequest[0])
@@ -82,14 +83,13 @@ module.exports = {
   //<h4> get city data </h4>
   //grabs the city data from the query
   fetchCityData: function(req, res){
+    var term = decodeURI(req.url.split('/')[2]).split(',')[2];
     var cityState = parseCityName(decodeURI(req.url.split('/')[2]))
-    console.log(cityState)
-    var term = req.body.searchTerm
     yelp.search({
       term: term || "Activity",
       location: cityState
     }).then(function (data) {
-      console.log(data.businesses[0].location, "BUSINESS LOCATION")
+      console.log(data.businesses[0].location)
       res.send(JSON.stringify(data.businesses))
     }).catch(function (err) {
       res.status(400).send(err);
