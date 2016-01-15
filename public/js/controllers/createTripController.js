@@ -33,6 +33,14 @@ angular.module('app.create', ['app.services'])
       }
   };
 
+  $scope.getPhotos = function(){
+    var cityState = $scope.city + ", " + $scope.state
+    ActivitiesData.getPhotos(cityState, function(photos){
+      $scope.photos = photos
+      console.log("photos", $scope.photos)
+    })
+  };
+
   $scope.getWeather = function (activity,dt) {
     var lat = activity.location.coordinate.latitude;
     var lon = activity.location.coordinate.longitude;
@@ -46,6 +54,7 @@ angular.module('app.create', ['app.services'])
         console.log(activity.weather)
       })
   }
+
 
   // $scope.itinerary is an emtpy array that will contain all the activities the user will add
   // to their trip
@@ -90,7 +99,6 @@ angular.module('app.create', ['app.services'])
     var trip = JSON.stringify(tripObj);
     ActivitiesData.createTrip(trip);
   };
-
 
   $scope.today = function() {
     $scope.dt = new Date();
