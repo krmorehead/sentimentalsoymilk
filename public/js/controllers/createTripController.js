@@ -23,7 +23,9 @@ angular.module('app.create', ['app.services'])
       // $scope.formCompleted set to true removes the form and begins populating
       // the rest of the page.
       $scope.formCompleted = true;
-      $http.get('/activities/' + $scope.city + ',' + $scope.state + ',' + $scope.activity)
+      // $http.get('/activities/' + $scope.city + ',' + $scope.state + ',' + $scope.activity)
+      $http.get('/activities/' + $scope.geoObj.lat + ',' + $scope.geoObj.lng + ',' + $scope.activity)
+
         .success(function (data) {
           // $scope.activities is an array of all the activities found by the api
           // at the given destination
@@ -195,48 +197,64 @@ angular.module('app.create', ['app.services'])
         var e = args[0];
         var lat = e.latLng.lat();
         var lon = e.latLng.lng();
-        console.log('clicked!', args[0], lat, lon);
-      }
-    }
-  }).then(function(map) {
-    $scope.map = map;
-    // $scope.events = {'click' : function () { console.log('woo-hoo') }};
-    //console.log('create Trip map', $scope.map);
-  });
-
-  $scope.marker = {
-    id: 0,
-    coords: {
-      latitude: 40.1451,
-      longitude: -99.6680
-    },
-    options: { draggable: true },
-    events: {
-      dragend: function (marker, eventName, args) {
-        var lat = marker.getPosition().lat();
-        var lon = marker.getPosition().lng();
-        $scope.marker.options = {
-          draggable: true,
-          labelContent: "lat: " + $scope.marker.coords.latitude + ' ' + 'lon: ' + $scope.marker.coords.longitude,
-          labelAnchor: "100 0",
-          labelClass: "marker-labels"
-        };
-        $scope.map.zoom = $scope.map.zoom + 1;
-        $scope.map.center.latitude = $scope.marker.coords.latitude;
-        $scope.map.center.longitude = $scope.marker.coords.longitude;
+        //console.log('clicked!', args[0], lat, lon);
         var geoObj = {
           lat: lat,
           lng: lon
         };
         Map.getCityfromGeo(geoObj).then(function(obj) {
-          console.log(obj);
+          //console.log(obj);
           $scope.city = obj.city;
           $scope.state = obj.state;
-          $scope.itineraryName = obj.city + obj.state;
+          $scope.itineraryName = 'My Adventure';
+          $scope.geoObj = obj;
+          $scope.startItinerary();
+          $scope.getPhotos();
         });
-        //console.log('lat', $scope.marker.coords.latitude, 'long', $scope.marker.coords.longitude);
+
       }
+    },
+    options: {
+      scrollwheel: false
     }
-  };
+  }).then(function(map) {
+    $scope.map = map;
+    //console.log('create Trip map', $scope.map);
+  });
+
+  // $scope.marker = {
+  //   id: 0,
+  //   coords: {
+  //     latitude: 40.1451,
+  //     longitude: -99.6680
+  //   },
+  //   options: { draggable: true },
+  //   events: {
+  //     dragend: function (marker, eventName, args) {
+  //       var lat = marker.getPosition().lat();
+  //       var lon = marker.getPosition().lng();
+  //       $scope.marker.options = {
+  //         draggable: true,
+  //         labelContent: "lat: " + $scope.marker.coords.latitude + ' ' + 'lon: ' + $scope.marker.coords.longitude,
+  //         labelAnchor: "100 0",
+  //         labelClass: "marker-labels"
+  //       };
+  //       $scope.map.zoom = $scope.map.zoom + 1;
+  //       $scope.map.center.latitude = $scope.marker.coords.latitude;
+  //       $scope.map.center.longitude = $scope.marker.coords.longitude;
+  //       var geoObj = {
+  //         lat: lat,
+  //         lng: lon
+  //       };
+  //       Map.getCityfromGeo(geoObj).then(function(obj) {
+  //         console.log(obj);
+  //         $scope.city = obj.city;
+  //         $scope.state = obj.state;
+  //         $scope.itineraryName = obj.city + obj.state;
+  //       });
+  //       console.log('lat', $scope.marker.coords.latitude, 'long', $scope.marker.coords.longitude);
+  //     }
+  //   }
+  // };
 
 });
