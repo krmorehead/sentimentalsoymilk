@@ -133,10 +133,6 @@ angular.module('app.create', ['app.services'])
     $scope.popup1.opened = true;
   };
 
-  $scope.open2 = function() {
-    $scope.popup2.opened = true;
-  };
-
   $scope.setDate = function(year, month, day) {
     $scope.dt = new Date(year, month, day);
     console.log($scope.dt);
@@ -155,10 +151,6 @@ angular.module('app.create', ['app.services'])
     opened: false
   };
 
-  $scope.popup2 = {
-    opened: false
-  };
-
   var tomorrow = new Date();
   tomorrow.setDate(tomorrow.getDate() + 1);
   var afterTomorrow = new Date();
@@ -174,6 +166,17 @@ angular.module('app.create', ['app.services'])
         status: 'partially'
       }
     ];
+
+  $scope.categories = ["Arts & Entertainment",
+                      "Landmarks",
+                      "Nightlife",
+                      "Restaurants",
+                      "Bars",
+                      "Coffee & Tea",
+                      "Delivery",
+                      "Tourist",
+                      "Shopping",
+                      "Beauty & Spas"];
 
   $scope.getDayClass = function(date, mode) {
     if (mode === 'day') {
