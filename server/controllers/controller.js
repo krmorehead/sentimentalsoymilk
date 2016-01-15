@@ -84,13 +84,17 @@ module.exports = {
   //grabs the city data from the query
   fetchCityData: function(req, res){
     var term = decodeURI(req.url.split('/')[2]).split(',')[2];
-    var cityState = parseCityName(decodeURI(req.url.split('/')[2]))
+    if (term === 'undefined') {
+      term = 'Tourism';
+    }
+    // var cityState = parseCityName(decodeURI(req.url.split('/')[2]));
+    var latLon = parseCityName(decodeURI(req.url.split('/')[2])).replace(' ', '');
     yelp.search({
-      term: term || "Activity",
-      location: cityState
+      term: term,
+      // location: cityState
+      ll: latLon
     }).then(function (data) {
-      console.log(data.businesses[0].location)
-      res.send(JSON.stringify(data.businesses))
+      res.send(JSON.stringify(data.businesses));
     }).catch(function (err) {
       res.status(400).send(err);
     });
