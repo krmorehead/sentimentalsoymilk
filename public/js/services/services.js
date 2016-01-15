@@ -36,6 +36,32 @@ angular.module('app.services',[])
     })
   };
 
+  data.photoSizes = {
+    //s small 75 x 75
+    "small" : "_s.jpg",
+    //q large 150 x 150
+    "large" : "_q.jpg",
+    //t thumbnail 100 on longest side
+    "thumbnail" : "_t.jpg",
+    // m  medium, 240 on longest side
+    "medium" : "_m.jpg",
+    // n  small, 320 on longest side
+    320 : "_n.jpg",
+    // -  medium, 500 on longest side
+    500 : "_-.jpg",
+    // z  medium 640, 640 on longest side
+    640 : "_z.jpg",
+    // c  medium 800, 800 on longest side†
+    800 : "_c.jpg",
+    // b  large, 1024 on longest side*
+    "large" : "_b.jpg",
+    // h  large 1600, 1600 on longest side†
+    1600 : "_h.jpg",
+    // k  large 2048, 2048 on longest side†
+    2048 : "_k.jpg",
+
+  }
+
   data.getPhotos = function(city, callback){
     return $http.get('/photos/' + city)
     .then(function(results){
@@ -44,6 +70,12 @@ angular.module('app.services',[])
     })
     .catch(function(err){
       console.log("error finding photos", err)
+    })
+  }
+
+  data.makePhotos = function(photos, size){
+    return _.map(photos, function(photoObj){
+      return photoObj.photoUrl + data.photoSizes[size]
     })
   }
 
