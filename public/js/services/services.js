@@ -273,7 +273,7 @@ angular.module('app.services',[])
     var url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + geoObj.lat + ',' + geoObj.lng + '&key=' + googleGeoKey;
     return $http.get(url)
     .then(function(results) {
-      //console.log('geo get',results);
+      console.log('geo get',results.data.results.reverse()[0]);
       var returnGeoObj = {};
 
       returnGeoObj.lat = geoObj.lat;
