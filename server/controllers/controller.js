@@ -67,7 +67,7 @@ module.exports = {
   //coordinates are not a great search parameter
   fetchPhotos : function(req, res){
     var text = parseCityName(decodeURI(req.url.split('/')[2]))
-    console.log("fetching photos", text)
+    // console.log("fetching photos", text)
     //arguments for the getPhotos function
     //text, tags(array), lat, lon, accuracy
     flickr.getPhotos(text, function(err, photosArray){
@@ -75,7 +75,7 @@ module.exports = {
         console.log('flickr error', err)
         res.send(err)
       }else{
-        console.log("photos", photosArray)
+        // console.log("photos", photosArray)
         res.send(photosArray)
       }
     })
