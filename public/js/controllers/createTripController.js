@@ -191,9 +191,12 @@ angular.module('app.create', ['app.services'])
     },
     zoom: 4,
     events: {
-      // click: function(map, click, args) {
-      //   console.log('clicked!');
-      // }
+      click: function(maps, event, args) {
+        var e = args[0];
+        var lat = e.latLng.lat();
+        var lon = e.latLng.lng();
+        console.log('clicked!', args[0], lat, lon);
+      }
     }
   }).then(function(map) {
     $scope.map = map;
