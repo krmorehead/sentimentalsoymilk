@@ -74,7 +74,7 @@ module.exports = {
       if(err){
         console.log('flickr error', err)
         res.send(err)
-      }else{
+      }else {
         // console.log("photos", photosArray)
         res.send(photosArray)
       }
@@ -83,21 +83,34 @@ module.exports = {
   //<h4> get city data </h4>
   //grabs the city data from the query
   fetchCityData: function(req, res){
-    var term = decodeURI(req.url.split('/')[2]).split(',')[2];
+    var csll = decodeURI(req.url.split('/')[2].split(',')[0]);
+    var term = decodeURI(req.url.split('/')[2]).split(',')[3];
     if (term === 'undefined') {
       term = 'Food';
     }
     // var cityState = parseCityName(decodeURI(req.url.split('/')[2]));
-    var latLon = parseCityName(decodeURI(req.url.split('/')[2])).replace(' ', '');
-    yelp.search({
-      term: term,
-      // location: cityState
-      ll: latLon
-    }).then(function (data) {
-      res.send(JSON.stringify(data.businesses));
-    }).catch(function (err) {
-      res.status(400).send(err);
-    });
+    if (csll === 'cs') {
+      var cityState = parseCityName(decodeURI(req.url.split('/')[2].split(',').slice(1,3)));
+      yelp.search({
+        term: term,
+        location: cityState
+      }).then(function (data) {
+        res.send(JSON.stringify(data.businesses));
+      }).catch(function (err) {
+        res.status(400).send(err);
+      });
+    } else {
+      var latlon = parseCityName(decodeURI(req.url.split('/')[2].split(',').slice(1,3)));
+      console.log(latLon)
+      yelp.search({
+        term: term,
+        ll: latLon
+      }).then(function (data) {
+        res.send(JSON.stringify(data.businesses));
+      }).catch(function (err) {
+        res.status(400).send(err);
+      });
+    }
   },
   //<h4> searchStoredData </h4>
   // Parses the city name from the request url param and
