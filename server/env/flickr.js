@@ -13,7 +13,7 @@ var flickr_params = {
   page: 1,
   // geo_context: 2,
   // accuracy: 11,
-  safe_search	: 2,
+  safe_search	: 1,
   text: "",
   sort: "relevance"
   // tag_mode: "all",

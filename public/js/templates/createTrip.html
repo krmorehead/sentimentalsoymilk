@@ -128,33 +128,37 @@
       <button class="btn btn-success" ng-click="saveItinerary()">Save Your Itinerary!</button>
     </div> -->
 
-    <!-- HERE IS WHERE PHOTOS ARE -->
-    <div class = "photos">
-      <span>
-        <ul class="enlarge">
-          <li ng-repeat = "photo in photos">
-            <a href = "{{photo.profileUrl}}">
-              <img src="{{photo.smallPhoto}}">
-            </a>
-            <span>
-              <img src="{{photo.medPhoto}}">
-              <br/>{{photo.profileUrl}}
-            </span>
-          </li>
-        </ul>
-        <!-- <img src="{{photo.smallPhoto}}"> -->
-      </span>
-    </div>
+
+<!-- HERE IS WHERE PHOTOS ARE -->
+<h4 class = "header"> Photos of {{city}}</h4>
+  <div class = "photos">
+    <span>
+      <ul class="enlarge">
+        <li ng-repeat = "photo in photos">
+          <a href = "{{photo.profileUrl}}">
+            <img src="{{photo.smallPhoto}}">
+          </a>
+          <span>
+            <img src="{{photo.medPhoto}}">
+            <br/>{{photo.profileUrl}}
+          </span>
+        </li>
+      </ul>
+      <!-- <img src="{{photo.smallPhoto}}"> -->
+    </span>
+  </div>
 
 
-    <!-- HERE ARE THE LIST OF ACTIVITIES FOR A PARTICULAR LOCATION-->
-    <div class="selection-list col-xs-6 text-center right-column">
-      <h4>Activities</h4>
-      <div class="activitylist-right">
-        <ul ng-show="formCompleted">
-          <li class="foursquare-li li-add" ng-repeat="activity in activities | orderBy:'-review_count'">
-            <div class="row" >
-              <img src="../../resources/plus.png" class = "plus" ng-click="addToTrip()">
+
+  <!-- <div class="selection-list col-xs-6 text-center right-column">
+    <h4>Activities</h4>
+
+    <div class="activitylist-right">
+      <ul ng-show="formCompleted">
+        <li class="foursquare-li li-add" ng-repeat="activity in activities | orderBy:'-review_count'">
+          <div class="row" >
+            <img src="../../resources/plus.png" class = "plus" ng-click="addToTrip()">
+>>>>>>> got the hovering functions working, still can't seem to get everything inline properly
               <img class="addActivityImage" src="{{activity.image_url}}" alt="">
               <p><strong>{{activity.name}}</strong></p>
               <p>{{activity.location.display_address.join(", ")}}</p>
@@ -176,5 +180,75 @@
               </li>
             </ul>
           </div>
+<<<<<<< HEAD
         </div>
       </div>
+=======
+        </li>
+      </ul>
+    </div> -->
+<!--       <div class="activitylist-right">
+        <ul ng-show="formCompleted">
+          <li class="foursquare-li li-add" ng-repeat="activity in activities | orderBy:'-review_count'">
+ -->
+<div class="activitylist">
+  <h4 class = "header">Activities in {{city}}</h4>
+  <div class = "activities">
+    <span>
+      <ul class="enlargeActivity">
+        <li ng-repeat = "activity in activities | orderBy:'-review_count'">
+            <div class = "activityDiv" >
+              <img class = "activityImg" src="{{activity.image_url}}" ng-mouseover = "showPlus = true; console.log(1)" ng-show = "!showPlus">
+              <img class = "plusButton" src = "../resources/plus.png" ng-show = "showPlus" ng-mouseleave = "showPlus = false" ng-click="addToTrip()">
+
+              <br/>{{activity.name}}
+              <p><a href="{{activity.url}}">Yelp Page</a></p>
+              <span class = "activityBox" ng-init='getWeather(activity,dt)'>
+                <div >
+                  <img class="addActivityImage" src="{{activity.image_url}}" alt="">
+                  <p><strong>{{activity.name}}</strong></p>
+                  <p>{{activity.location.display_address.join(", ")}}</p>
+                  <p>{{activity.rating}}/5</p>
+                  <p><img src="{{activity.rating_img_url}}"></p>
+                  <p>Has been reviewed {{activity.review_count}} times</p>                 
+                  <p>{{activity.address.split(',')[0]}}</p>
+                  <p>{{activity.category}}</p>
+                  <div class='weather'>
+                    <p> Showing a high of {{activity.weather.max}} degrees,
+                      and a low of {{activity.weather.min}} degrees.<p>
+                    <p>{{activity.weather.summary}}<p>
+                  </div>
+                </div>
+              </span>
+
+            </div>
+          </div>
+        </li>
+      </ul>
+    </span>
+  </div>
+</div>
+
+<!-- <div class="row" >
+  <img class="addActivityImage" src="{{activity.image_url}}" alt="">
+  <p><strong>{{activity.name}}</strong></p>
+  <p>{{activity.location.display_address.join(", ")}}</p>
+  <p>{{activity.rating}}/5</p>
+  <p><img src="{{activity.rating_img_url}}"></p>
+  <p>Has been reviewed {{activity.review_count}} times</p>
+  <p class = "yelpLink"><a href="{{activity.url}}">Yelp Page</a></p>
+  <p>{{activity.address.split(',')[0]}}</p>
+  <p>{{activity.category}}</p>
+  <div class='weatherButton' ng-hide="activity.weather" ng-click='getWeather(activity,dt)'>
+    <button class="btn btn-success">Get the Weather</button>
+  </div>
+  <div class='weather' ng-show='activity.weather'>
+    <p> Showing a high of {{activity.weather.max}} degrees,
+      and a low of {{activity.weather.min}} degrees.<p>
+    <p>{{activity.weather.summary}}<p>
+  </div>
+</div> -->
+
+    
+  </div>
+</div>
