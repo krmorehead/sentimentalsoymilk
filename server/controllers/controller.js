@@ -85,7 +85,7 @@ module.exports = {
   fetchCityData: function(req, res){
     var term = decodeURI(req.url.split('/')[2]).split(',')[2];
     if (term === 'undefined') {
-      term = 'Tourist';
+      term = 'Food';
     }
     // var cityState = parseCityName(decodeURI(req.url.split('/')[2]));
     var latLon = parseCityName(decodeURI(req.url.split('/')[2])).replace(' ', '');

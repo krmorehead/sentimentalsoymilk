@@ -297,5 +297,58 @@ angular.module('app.services',[])
       return returnGeoObj;
     });
   };
+
+  map.buildMarkers = function(tripsArr) {
+    //create markers
+    var markers = [];
+    tripsArr.forEach(function(currTrip, index) {
+      var markerObj = {};
+      markerObj.idKey = currTrip._id;
+      markerObj.index = index;
+      markerObj.click = 'click';
+      markerObj.coords = currTrip.activities[0].location.coordinate;
+      markerObj.events = {
+        // click: function(markers, eventName, model, args) {
+        //   $scope.viewTrip(markerObj.index);
+        // }
+      };
+      markerObj.options = {
+        title: currTrip.name//,
+        // icon: {
+        //   url: currTrip.image,
+        //   size: new google.maps.Size(30, 30),
+        //   scaledSize: new google.maps.Size(30, 30)
+        // }
+      };
+      markers.push(markerObj);
+    });
+    return markers;
+  };
+  map.buildActivityMarkers = function(activitiesArr) {
+    //create markers
+    var markers = [];
+    activitiesArr.forEach(function(currActivity, index) {
+      var markerObj = {};
+      // markerObj.idKey = currActivity._id;
+      markerObj.idKey = index;
+      markerObj.click = 'click';
+      markerObj.coords = currActivity.location.coordinate;
+      markerObj.events = {
+        // click: function(markers, eventName, model, args) {
+        //   $scope.viewTrip(markerObj.index);
+        // }
+      };
+      markerObj.options = {
+        title: currActivity.name//,
+        // icon: {
+        //   url: currTrip.image,
+        //   size: new google.maps.Size(30, 30),
+        //   scaledSize: new google.maps.Size(30, 30)
+        // }
+      };
+      markers.push(markerObj);
+    });
+    return markers;
+  };
   return map;
 });

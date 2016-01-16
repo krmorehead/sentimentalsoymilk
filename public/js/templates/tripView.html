@@ -29,6 +29,12 @@
   <h2 class="page-title">{{name}}</h2>
   <h4 class="page-title">{{destination[0]}}, {{destination[1]}}</h4>
 
+  <ui-gmap-google-map center="map.center" zoom="map.zoom" options="map.options" bounds="map.bounds" control="map.mapControl">
+    <ui-gmap-marker ng-repeat="mark in markers" coords="mark.coords" idkey="mark.idKey" events="mark.events" options="mark.options"></ui-gmap-marker>
+  </ui-gmap-google-map>
+
+  <input type="text" ng-model="filter.destination" id="landing-filter" placeholder="Search By City">
+
 <div class="tripview-container">
   <ul>
     <li class="foursquare-li li-add" ng-repeat="activity in activities">
@@ -48,7 +54,7 @@
             <!-- <i class="fa fa-thumbs-up fa-2x"></i> -->
             <!-- <i class="fa fa-thumbs-down fa-2x"></i> -->
             <div class="vote glyphicon glyphicon-triangle-top"></div>
-            <div class="vote glyphicon glyphicon-triangle-bottom"></div> 
+            <div class="vote glyphicon glyphicon-triangle-bottom"></div>
           </div>
       </div>
     </li>
