@@ -10,6 +10,7 @@ angular.module('app.create', ['app.services'])
   // if true, the form will hide and the right side of page will populate
   $scope.formCompleted = false;
 
+  $scope.activity = '';
   // <h3>startItinerary is a function to: </h3>
     // 1. hide the form
     // 2. trigger the search
@@ -24,13 +25,12 @@ angular.module('app.create', ['app.services'])
       // the rest of the page.
       $scope.formCompleted = true;
       // $http.get('/activities/' + $scope.city + ',' + $scope.state + ',' + $scope.activity)
+      console.log($scope.activity, "SCOPE ACTIVITY");
       $http.get('/activities/' + $scope.geoObj.lat + ',' + $scope.geoObj.lng + ',' + $scope.activity)
-
         .success(function (data) {
           // $scope.activities is an array of all the activities found by the api
           // at the given destination
           $scope.activities = data;
-          console.log($scope.activities)
         });
       }
   };
@@ -220,7 +220,6 @@ angular.module('app.create', ['app.services'])
           lng: lon
         };
         Map.getCityfromGeo(geoObj).then(function(obj) {
-          //console.log(obj);
           $scope.city = obj.city;
           $scope.state = obj.state;
           $scope.itineraryName = 'My Adventure';
