@@ -123,31 +123,6 @@
     </span>
   </div>
 
-  <!-- <div class="selection-list col-xs-6 text-center right-column">
-    <h4>Activities</h4>
-
-    <div class="activitylist-right">
-      <ul ng-show="formCompleted">
-        <li class="foursquare-li li-add" ng-repeat="activity in activities | orderBy:'-review_count'">
-          <div class="row" >
-            <img src="../../resources/plus.png" class = "plus" ng-click="addToTrip()">
->>>>>>> got the hovering functions working, still can't seem to get everything inline properly
-=======
-    <!-- HERE ARE THE LIST OF ACTIVITIES FOR A PARTICULAR LOCATION-->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     
 <div class="activitylist">
@@ -159,8 +134,7 @@
             <div class = "activityDiv" >
               <img class = "activityImg" src="{{activity.image_url}}" ng-mouseover = "showPlus = true; console.log(1)" ng-show = "!showPlus">
               <img class = "plusButton" src = "../resources/plus.png" ng-show = "showPlus" ng-mouseleave = "showPlus = false" ng-click="addToTrip()">
-
-              <br/>{{activity.name}}
+              <p data-fittext-max=".8vw" data-fittext-min=".5vw">{{activity.name}}</p>
               <p><a href="{{activity.url}}">Yelp Page</a></p>
               <span class = "activityBox" ng-init='getWeather(activity,dt)'>
                 <div class = "activityBox" >
