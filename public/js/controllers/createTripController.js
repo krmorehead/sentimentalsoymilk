@@ -222,7 +222,9 @@ angular.module('app.create', ['app.services'])
         Map.getCityfromGeo(geoObj).then(function(obj) {
           $scope.city = obj.city;
           $scope.state = obj.state;
-          $scope.itineraryName = 'My Adventure';
+          if ($scope.itineraryName.length === 0) {
+            $scope.itineraryName = 'My Adventure';
+          }
           $scope.geoObj = obj;
           $scope.startItinerary();
           $scope.getPhotos();
@@ -231,7 +233,8 @@ angular.module('app.create', ['app.services'])
       }
     },
     options: {
-      scrollwheel: false
+      scrollwheel: false,
+      styles: Map.stylesArr
     }
   }).then(function(map) {
     $scope.map = map;

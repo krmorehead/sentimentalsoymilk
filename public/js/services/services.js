@@ -313,12 +313,12 @@ angular.module('app.services',[])
         // }
       };
       markerObj.options = {
-        title: currTrip.name//,
-        // icon: {
-        //   url: currTrip.image,
-        //   size: new google.maps.Size(30, 30),
-        //   scaledSize: new google.maps.Size(30, 30)
-        // }
+        title: currTrip.name,
+        icon: {
+          url: 'http://www.googlemapsmarkers.com/v1/0077ed'
+          // size: new google.maps.Size(30, 30),
+          // scaledSize: new google.maps.Size(30, 30)
+        }
       };
       markers.push(markerObj);
     });
@@ -331,6 +331,7 @@ angular.module('app.services',[])
       var markerObj = {};
       // markerObj.idKey = currActivity._id;
       markerObj.idKey = index;
+      markerObj.index = index;
       markerObj.click = 'click';
       markerObj.coords = currActivity.location.coordinate;
       markerObj.events = {
@@ -339,16 +340,149 @@ angular.module('app.services',[])
         // }
       };
       markerObj.options = {
-        title: currActivity.name//,
-        // icon: {
-        //   url: currTrip.image,
-        //   size: new google.maps.Size(30, 30),
-        //   scaledSize: new google.maps.Size(30, 30)
-        // }
+        title: currActivity.name,
+        icon: {
+          url: 'http://www.googlemapsmarkers.com/v1/0077ed'
+          // size: new google.maps.Size(30, 30),
+          // scaledSize: new google.maps.Size(30, 30)
+        },
+
+          labelContent: currActivity.name,
+          labelAnchor: '22 0',
+          labelClass: 'marker-labels',
+          labelVisible: true
+
       };
       markers.push(markerObj);
     });
     return markers;
   };
+
+  map.stylesArr = [
+    {
+      'featureType': 'landscape',
+      'elementType': 'all',
+      'stylers': [
+        {
+          'hue': '#FFBB00'
+        },
+        {
+          'saturation': 43.400000000000006
+        },
+        {
+          'lightness': 37.599999999999994
+        },
+        {
+          'gamma': 1
+        }
+      ]
+    },
+    {
+      'featureType': 'poi',
+      'elementType': 'all',
+      'stylers': [
+        {
+          'hue': '#00FF6A'
+        },
+        {
+          'saturation': -1.0989010989011234
+        },
+        {
+          'lightness': 11.200000000000017
+        },
+        {
+          'gamma': 1
+        }
+      ]
+    },
+    {
+      'featureType': 'road.highway',
+      'elementType': 'all',
+      'stylers': [
+        {
+          'hue': '#FFC200'
+        },
+        {
+          'saturation': -61.8
+        },
+        {
+          'lightness': 45.599999999999994
+        },
+        {
+          'gamma': 1
+        }
+      ]
+    },
+    {
+      'featureType': 'road.arterial',
+      'elementType': 'all',
+      'stylers': [
+        {
+          'hue': '#FF0300'
+        },
+        {
+          'saturation': -100
+        },
+        {
+          'lightness': 51.19999999999999
+        },
+        {
+          'gamma': 1
+        }
+      ]
+    },
+    {
+      'featureType': 'road.local',
+      'elementType': 'all',
+      'stylers': [
+        {
+          'hue': '#FF0300'
+        },
+        {
+          'saturation': -100
+        },
+        {
+          'lightness': 52
+        },
+        {
+          'gamma': 1
+        }
+      ]
+    },
+    {
+      'featureType': 'water',
+      'elementType': 'all',
+      'stylers': [
+        {
+          'hue': '#0078FF'
+        },
+        {
+          'saturation': -13.200000000000003
+        },
+        {
+          'lightness': 2.4000000000000057
+        },
+        {
+          'gamma': 1
+        }
+      ]
+    },
+    {
+      'featureType': 'water',
+      'elementType': 'geometry.fill',
+      'stylers': [
+        {
+          'visibility': 'on'
+        },
+        {
+          'weight': '0.01'
+        },
+        {
+          'color': '#6cb9ff'
+        }
+      ]
+    }
+  ];
+
   return map;
 });
