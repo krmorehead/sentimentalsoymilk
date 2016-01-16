@@ -178,6 +178,14 @@ angular.module('app.create', ['app.services'])
                       "Shopping",
                       "Beauty & Spas"];
 
+  $scope.getActivity = function(search) {
+       var newCats = $scope.categories.slice();
+        if (search && newCats.indexOf(search) === -1) {
+          newCats.unshift(search);
+        }
+        return newCats;
+      }
+
   $scope.getDayClass = function(date, mode) {
     if (mode === 'day') {
       var dayToCheck = new Date(date).setHours(0,0,0,0);
