@@ -35,8 +35,9 @@ angular.module('app.landing', ['app.services'])
 
   uiGmapGoogleMapApi.then(function(maps) {
     //console.log('maps!', maps);
-    $scope.map = { center: { latitude: 45, longitude: -73 }, zoom: 2, options: {scrollwheel: false} };
+    $scope.map = { center: { latitude: 45, longitude: -73 }, zoom: 2, options: {scrollwheel: false, styles: Map.stylesArr} };
     //console.log('scope map', $scope.map);
     $scope.buildMarkers();
+
   });
 });
