@@ -96,7 +96,7 @@ angular.module('app.create', ['app.services'])
     // });
     //angular hashes the objects in the array, this removes that for mongo
     var activities = angular.toJson($scope.itinerary)
-    console.log("ACTIVITY:", $scope.itinerary);
+    //console.log("ACTIVITY:", $scope.itinerary);
     var tripObj = {
       name: $scope.itineraryName,
       city: $scope.city,
@@ -105,6 +105,7 @@ angular.module('app.create', ['app.services'])
       image: $scope.itineraryImage
     };
     var trip = JSON.stringify(tripObj);
+    //console.log("Trip Obj", trip);
     ActivitiesData.createTrip(trip);
   };
 
@@ -237,40 +238,5 @@ angular.module('app.create', ['app.services'])
     $scope.map = map;
     //console.log('create Trip map', $scope.map);
   });
-
-  // $scope.marker = {
-  //   id: 0,
-  //   coords: {
-  //     latitude: 40.1451,
-  //     longitude: -99.6680
-  //   },
-  //   options: { draggable: true },
-  //   events: {
-  //     dragend: function (marker, eventName, args) {
-  //       var lat = marker.getPosition().lat();
-  //       var lon = marker.getPosition().lng();
-  //       $scope.marker.options = {
-  //         draggable: true,
-  //         labelContent: "lat: " + $scope.marker.coords.latitude + ' ' + 'lon: ' + $scope.marker.coords.longitude,
-  //         labelAnchor: "100 0",
-  //         labelClass: "marker-labels"
-  //       };
-  //       $scope.map.zoom = $scope.map.zoom + 1;
-  //       $scope.map.center.latitude = $scope.marker.coords.latitude;
-  //       $scope.map.center.longitude = $scope.marker.coords.longitude;
-  //       var geoObj = {
-  //         lat: lat,
-  //         lng: lon
-  //       };
-  //       Map.getCityfromGeo(geoObj).then(function(obj) {
-  //         console.log(obj);
-  //         $scope.city = obj.city;
-  //         $scope.state = obj.state;
-  //         $scope.itineraryName = obj.city + obj.state;
-  //       });
-  //       console.log('lat', $scope.marker.coords.latitude, 'long', $scope.marker.coords.longitude);
-  //     }
-  //   }
-  // };
 
 });
