@@ -26,12 +26,21 @@ angular.module('app.create', ['app.services'])
       $scope.formCompleted = true;
       // $http.get('/activities/' + $scope.city + ',' + $scope.state + ',' + $scope.activity)
       console.log($scope.activity, "SCOPE ACTIVITY");
-      $http.get('/activities/' + $scope.geoObj.lat + ',' + $scope.geoObj.lng + ',' + $scope.activity)
-        .success(function (data) {
-          // $scope.activities is an array of all the activities found by the api
-          // at the given destination
-          $scope.activities = data;
-        });
+      if ($scope.city) {
+        $http.get('/activities/cs,' + $scope.city + ',' + $scope.state + ',' + $scope.activity)
+          .success(function (data) {
+            // $scope.activities is an array of all the activities found by the api
+            // at the given destination
+            $scope.activities = data;
+          });
+      } else {
+        $http.get('/activities/ll,' + $scope.geoObj.lat + ',' + $scope.geoObj.lng + ',' + $scope.activity)
+          .success(function (data) {
+            // $scope.activities is an array of all the activities found by the api
+            // at the given destination
+            $scope.activities = data;
+          });
+        }
       }
   };
 
@@ -61,6 +70,14 @@ angular.module('app.create', ['app.services'])
         activity.weather.summary = data.daily.data[0].summary;
         console.log(activity.weather)
       })
+  }
+
+  $scope.keyPress = function(keyCode) {
+    console.log(keyCode)
+    if (keyCode === 13) {
+      $scope.startItinerary();
+      $scope.getPhotos();
+    }
   }
 
 

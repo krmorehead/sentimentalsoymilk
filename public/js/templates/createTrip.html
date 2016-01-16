@@ -15,7 +15,7 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li><a href="/#myTrips">My Adevntures</a></li>
+      <li><a href="/#myTrips">My Adventures</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="/logout">Logout</a></li>
@@ -26,53 +26,53 @@
 
 
 <!-- content -->
-<div class="creation-container">
+<div class="creation-container" >
   <div class="col-xs-6 text-center left-column">
-<div class="create-trip-map">
-  <ui-gmap-google-map center="map.center" zoom="map.zoom" events="map.events" options="map.options">
-  </ui-gmap-google-map>
-</div>
-<h4>Build your Adventure</h4>
-<div class="ShowForm" >
-  <form class="form-horizontal">
-    <div class="form-group">
-      <label for="inputEmail3" class="col-sm-2 control-label">Adventure Name:</label>
-      <div class="col-sm-10">
-        <input type="text" class="form-control" placeholder="Birthday Bonanza" ng-model="itineraryName">
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="inputPassword3" class="col-sm-2 control-label">City</label>
-      <div class="col-sm-10">
-        <input type="text" class="form-control" id="inputPassword3" placeholder="San Francisco" ng-model="city">
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="inputPassword3" class="col-sm-2 control-label">State</label>
-      <div class="col-sm-10">
-        <input type="text" class="form-control" id="inputPassword3" placeholder="CA" ng-model="state">
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="inputPassword3" class="col-sm-2 control-label">Activity</label>
-      <div class="col-sm-10" ng-model="activity">
-        <ui-select>
-        <ui-select-match placeholder="Select an Activity">{{$select.selected}}</ui-select-match>
-        <ui-select-choices repeat="category in getActivity($select.search) | filter: $select.search">
-        <div ng-bind ='category'></div>
-      </ui-select-choices>
-    </ui-select>
+    <div class="create-trip-map">
+      <ui-gmap-google-map center="map.center" zoom="map.zoom" events="map.events" options="map.options">
+    </ui-gmap-google-map>
   </div>
-</div>
-<div class="col-md-6">
-  <label for="inputPassword3" class="col-sm-2 control-label">Date Attending</label>
-  <p class="input-group">
-    <input type="text" class="form-control" id='inputPassword3' uib-datepicker-popup="{{format}}" ng-model="dt" is-open="popup1.opened" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
-    <span class="input-group-btn">
-      <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
-    </span>
-  </p>
-</div>
+  <h4>Build your Adventure</h4>
+  <div class="ShowForm" ng-keyup="keyPress($event.keyCode)" >
+    <form class="form-horizontal">
+      <div class="form-group">
+        <label for="inputEmail3" class="col-sm-2 control-label">Adventure Name:</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" placeholder="Birthday Bonanza" ng-model="itineraryName">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="inputPassword3" class="col-sm-2 control-label">Activity</label>
+        <div class="col-sm-10" ng-model="activity">
+          <ui-select>
+          <ui-select-match placeholder="Select an Activity">{{$select.selected}}</ui-select-match>
+          <ui-select-choices repeat="category in getActivity($select.search) | filter: $select.search">
+          <div ng-bind ='category'></div>
+        </ui-select-choices>
+      </ui-select>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputPassword3" class="col-sm-2 control-label">City</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="inputPassword3" placeholder="San Francisco" ng-model="city">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputPassword3" class="col-sm-2 control-label">State</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="inputPassword3" placeholder="CA" ng-model="state">
+    </div>
+  </div>
+  <div class="col-md-6">
+    <label for="inputPassword3" class="col-sm-2 control-label">Date</label>
+    <p class="input-group">
+      <input type="text" class="form-control" id='inputPassword3' uib-datepicker-popup="{{format}}" ng-model="dt" is-open="popup1.opened" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+      <span class="input-group-btn">
+        <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+      </span>
+    </p>
+  </div>
 
 </form>
 </div>
@@ -100,82 +100,58 @@
 
 <!-- HERE IS WHERE PHOTOS ARE -->
 <h4 class = "header"> Photos of {{city}}</h4>
-  <div class = "photos">
-    <span>
-      <ul class="enlarge">
-        <li ng-repeat = "photo in photos">
-          <a href = "{{photo.profileUrl}}">
-            <img src="{{photo.smallPhoto}}">
-          </a>
-          <span>
-            <img src="{{photo.medPhoto}}">
-            <br/>{{photo.profileUrl}}
-          </span>
-        </li>
-      </ul>
-      <!-- <img src="{{photo.smallPhoto}}"> -->
-    </span>
-  </div>
+<div class = "photos">
+  <span>
+    <ul class="enlarge">
+      <li ng-repeat = "photo in photos">
+        <a href = "{{photo.profileUrl}}">
+          <img src="{{photo.smallPhoto}}">
+        </a>
+        <span>
+          <img src="{{photo.medPhoto}}">
+          <br/>{{photo.profileUrl}}
+        </span>
+      </li>
+    </ul>
+    <!-- <img src="{{photo.smallPhoto}}"> -->
+  </span>
+</div>
 
 
-    
+
 <div class="activitylist">
   <h4 class = "header">Activities in {{city}}</h4>
   <div class = "activities">
     <span>
       <ul class="enlargeActivity">
         <li ng-repeat = "activity in activities | orderBy:'-review_count'">
-            <div class = "activityDiv" >
-              <img class = "activityImg" src="{{activity.image_url}}" ng-mouseover = "showPlus = true; console.log(1)" ng-show = "!showPlus">
-              <img class = "plusButton" src = "../resources/plus.png" ng-show = "showPlus" ng-mouseleave = "showPlus = false" ng-click="addToTrip()">
-              <p>{{activity.name}}</p>
-              <p><a href="{{activity.url}}">Yelp Page</a></p>
-              <span class = "activityBox" ng-init='getWeather(activity,dt)'>
-                <div class = "activityBox" >
-                  <img class="addActivityImage" src="{{activity.image_url}}" alt="">
-                  <p><strong>{{activity.name}}</strong></p>
-                  <p>{{activity.location.display_address.join(", ")}}</p>
-                  <p>{{activity.rating}}/5</p>
-                  <p><img src="{{activity.rating_img_url}}"></p>
-                  <p>Has been reviewed {{activity.review_count}} times</p>                 
-                  <p>{{activity.address.split(',')[0]}}</p>
-                  <p>{{activity.category}}</p>
-                  <div class='weather'>
-                    <p> Showing a high of {{activity.weather.max}} degrees,
-                      and a low of {{activity.weather.min}} degrees.<p>
+          <div class = "activityDiv" >
+            <img class = "activityImg" src="{{activity.image_url}}" ng-mouseover = "showPlus = true; console.log(1)" ng-show = "!showPlus">
+            <img class = "plusButton" src = "../resources/plus.png" ng-show = "showPlus" ng-mouseleave = "showPlus = false" ng-click="addToTrip()">
+            <p>{{activity.name}}</p>
+            <p><a href="{{activity.url}}">Yelp Page</a></p>
+            <span class = "activityBox" ng-init='getWeather(activity,dt)'>
+              <div class = "activityBox" >
+                <img class="addActivityImage" src="{{activity.image_url}}" alt="">
+                <p><strong>{{activity.name}}</strong></p>
+                <p>{{activity.location.display_address.join(", ")}}</p>
+                <p>{{activity.rating}}/5</p>
+                <p><img src="{{activity.rating_img_url}}"></p>
+                <p>Has been reviewed {{activity.review_count}} times</p>                 
+                <p>{{activity.address.split(',')[0]}}</p>
+                <p>{{activity.category}}</p>
+                <div class='weather'>
+                  <p> Showing a high of {{activity.weather.max}} degrees,
+                    and a low of {{activity.weather.min}} degrees.<p>
                     <p>{{activity.weather.summary}}<p>
+                    </div>
                   </div>
-                </div>
-              </span>
+                </span>
 
+              </div>
             </div>
-          </div>
-        </li>
-      </ul>
-    </span>
+          </li>
+        </ul>
+      </span>
+    </div>
   </div>
-</div>
-
-<!-- <div class="row" >
-  <img class="addActivityImage" src="{{activity.image_url}}" alt="">
-  <p><strong>{{activity.name}}</strong></p>
-  <p>{{activity.location.display_address.join(", ")}}</p>
-  <p>{{activity.rating}}/5</p>
-  <p><img src="{{activity.rating_img_url}}"></p>
-  <p>Has been reviewed {{activity.review_count}} times</p>
-  <p class = "yelpLink"><a href="{{activity.url}}">Yelp Page</a></p>
-  <p>{{activity.address.split(',')[0]}}</p>
-  <p>{{activity.category}}</p>
-  <div class='weatherButton' ng-hide="activity.weather" ng-click='getWeather(activity,dt)'>
-    <button class="btn btn-success">Get the Weather</button>
-  </div>
-  <div class='weather' ng-show='activity.weather'>
-    <p> Showing a high of {{activity.weather.max}} degrees,
-      and a low of {{activity.weather.min}} degrees.<p>
-    <p>{{activity.weather.summary}}<p>
-  </div>
-</div> -->
-
-    
-  </div>
-</div>
