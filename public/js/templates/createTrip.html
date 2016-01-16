@@ -204,7 +204,7 @@
               <br/>{{activity.name}}
               <p><a href="{{activity.url}}">Yelp Page</a></p>
               <span class = "activityBox" ng-init='getWeather(activity,dt)'>
-                <div >
+                <div class = "activityBox" >
                   <img class="addActivityImage" src="{{activity.image_url}}" alt="">
                   <p><strong>{{activity.name}}</strong></p>
                   <p>{{activity.location.display_address.join(", ")}}</p>

@@ -331,13 +331,6 @@ ul.enlargeActivity li{
   position: relative; /*allows precise positioning of the popup image when used with position:absolute - see support section */
   z-index: 0; /*resets the stack order of the list items - we'll increase in step 4. See support section for more info*/
 }
-.activityBox {
-  z-index:100;
-  min-width: 500px;
-  background-color: white;
-  position:absolute; /*see support section for more info on positioning*/
-  left: -9999px; /*moves the span off the page, effectively hidding it from view*/
-}
 ul.enlargeActivity div{
   /*give the thumbnails a frame*/
   background-color:#eae9d4; /*frame colour*/
@@ -350,6 +343,22 @@ ul.enlargeActivity div{
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
+}
+span.activityBox {
+  z-index:100;
+  min-width: 500px;
+  opacity:.85;
+  position:absolute; /*see support section for more info on positioning*/
+  left: -9999px; /*moves the span off the page, effectively hidding it from view*/
+}
+
+ul.enlargeActivity div.activityBox{
+  background-color: #00001a;
+  color:white;
+}
+ul.enlargeActivity div.activityBox div.weather{
+  background-color: #00001a;
+  color:white;
 }
 
 ul.enlargeActivity li:hover{
