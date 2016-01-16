@@ -96,12 +96,6 @@
 </div>
 </div>
 
-<!--     <div class="itineraryItems" ng-show="!!formCompleted">
-      <div ng-repeat="activity in itinerary track by $index">
-        {{ item.name }}
-      </div>
-      <button class="btn btn-success" ng-click="saveItinerary()">Save Your Itinerary!</button>
-    </div> -->
 
 
 <!-- HERE IS WHERE PHOTOS ARE -->
@@ -134,7 +128,7 @@
             <div class = "activityDiv" >
               <img class = "activityImg" src="{{activity.image_url}}" ng-mouseover = "showPlus = true; console.log(1)" ng-show = "!showPlus">
               <img class = "plusButton" src = "../resources/plus.png" ng-show = "showPlus" ng-mouseleave = "showPlus = false" ng-click="addToTrip()">
-              <p data-fittext-max=".8vw" data-fittext-min=".5vw">{{activity.name}}</p>
+              <p>{{activity.name}}</p>
               <p><a href="{{activity.url}}">Yelp Page</a></p>
               <span class = "activityBox" ng-init='getWeather(activity,dt)'>
                 <div class = "activityBox" >
