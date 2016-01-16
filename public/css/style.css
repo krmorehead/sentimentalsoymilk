@@ -1,6 +1,7 @@
 body{
   background-image: url("../resources/createTrip.jpg");
-  background-position: fixed;
+  background-size:100%,100%;
+  background-attachment: fixed;
 }
 
 html {
