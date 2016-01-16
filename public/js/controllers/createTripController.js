@@ -76,6 +76,7 @@ angular.module('app.create', ['app.services'])
     console.log(keyCode)
     if (keyCode === 13) {
       $scope.startItinerary();
+      $scope.getPhotos();
     }
   }
 
