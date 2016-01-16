@@ -29,6 +29,7 @@
     "bootstrap": "~3.3.6",
     "angular-bootstrap": "~1.0.3",
     "angular-google-maps": "~2.2.1",
-    "ui-select": "angular-ui-select#~0.13.2"
+    "ui-select": "angular-ui-select#~0.13.2",
+    "ngFitText": "~3.3.3"
   }
 }
