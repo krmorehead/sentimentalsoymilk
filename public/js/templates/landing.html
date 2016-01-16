@@ -9,14 +9,14 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="/#landing">Soy Milk</a>
+      <a class="navbar-brand" href="/#landing">Soy Chalupa</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li><a href="/#create">Create A Trip</a></li>
-        <li><a href="/#myTrips">My Trips</a></li>
+        <li><a href="/#create">Build an Adventure</a></li>
+        <li><a href="/#myTrips">My Adventures</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="/logout">Logout</a></li>
@@ -25,9 +25,8 @@
   </div><!-- /.container-fluid -->
 </nav>
 
-<a href="/#create" class="text-center" style="display: block">Make a Playlist</a>
 
-<h1 class="page-title">Popular Playlists:</h1>
+<h1 class="page-title">Popular Adventures:</h1>
 
 <ui-gmap-google-map center="map.center" zoom="map.zoom" options="map.options">
   <ui-gmap-marker ng-repeat="mark in markers" coords="mark.coords" idkey="mark.idKey" events="mark.events" options="mark.options"></ui-gmap-marker>
@@ -35,7 +34,7 @@
 
 <input type="text" ng-model="filter.destination" id="landing-filter" placeholder="Search By City">
 
-<div class="myTrips" style="background-color: white">
+<div class="myTrips">
   <span class="playlist" ng-repeat="trip in tripResults | filter:filter" ng-click="viewTrip(tripResults.indexOf(trip))">
     <div class="playlist-img">
       <img class="trip-img" src="{{trip.image}}" alt="image of {{trip.name}}, {{trip.destination[0]}}">
